@@ -1,0 +1,9 @@
+/* 调整首页 tagline/description 字体大小 */
+.VPHero .tagline {
+  font-size: 48px !important;
+}
+
+/* 如果是 text 字段也需要调整 */
+.VPHero .text {
+  font-size: 48px !important;
+}
