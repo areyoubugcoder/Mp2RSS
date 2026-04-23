@@ -1,5 +1,6 @@
 import { defineConfig } from "vitepress";
 
+const base = "/Mp2RSS/";
 const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 const gaHead = GOOGLE_ANALYTICS_ID
   ? ([
@@ -28,11 +29,11 @@ export default defineConfig({
   srcDir: "docs",
   title: "Mp2RSS",
   description: "让订阅微信公众号像订阅播客一样顺畅",
-  base: "/",
+  base,
   lastUpdated: true,
   head: [
-    ["link", { rel: "icon", href: "/favicon.ico" }],
-    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png" }],
+    ["link", { rel: "icon", href: `${base}favicon.ico` }],
+    ["link", { rel: "apple-touch-icon", href: `${base}apple-touch-icon.png` }],
     ...gaHead,
   ],
   themeConfig: {
