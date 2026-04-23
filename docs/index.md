@@ -10,6 +10,11 @@ hero:
     alt: Mp2RSS
   actions:
     - theme: brand
+      text: 立即使用
+      link: https://mp2rss.bugcode.dev
+      target: _blank
+      rel: noopener
+    - theme: alt
       text: 快速开始
       link: /guide/quick-start
     - theme: alt

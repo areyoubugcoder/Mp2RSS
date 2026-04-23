@@ -42,6 +42,12 @@ export default defineConfig({
       { text: "指南", link: "/guide/quick-start" },
       { text: "API 列表", link: "/api/" },
       { text: "FAQ", link: "/guide/faq" },
+      {
+        text: "立即使用",
+        link: "https://mp2rss.bugcode.dev",
+        target: "_blank",
+        rel: "noopener",
+      },
     ],
     sidebar: {
       "/guide/": [
