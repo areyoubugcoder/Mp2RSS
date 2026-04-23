@@ -60,10 +60,12 @@ const copyToClipboard = async () => {
 
 .path-text {
   background: var(--vp-code-bg);
-  padding: 0 6px;
+  border: 1px solid var(--vp-c-divider);
+  padding: 1px 6px;
   border-radius: 4px;
   font-family: var(--vp-font-family-mono);
-  font-size: 0.875em;
+  font-size: 0.9em;
+  color: var(--vp-c-text-1);
   margin: 0;
 }
 

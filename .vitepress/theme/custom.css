@@ -1,9 +1,329 @@
-/* 调整首页 tagline/description 字体大小 */
-.VPHero .tagline {
-  font-size: 48px !important;
+/* ============================================================
+ * Mp2RSS Docs —— 基调对齐 apps/web/.impeccable.md
+ *   沉静 · 工具感 · 可信（Linear / Stripe Dashboard 风格）
+ *   主色 #FDC800 只做状态标记；排版承担叙事；code 用 mono
+ * ============================================================ */
+
+@import url("https://rsms.me/inter/inter.css");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+/* ---------- 字体栈：UI = Inter，机器可读文本 = JetBrains Mono ---------- */
+:root {
+  --vp-font-family-base:
+    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", sans-serif;
+  --vp-font-family-mono:
+    "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Consolas, "Liberation Mono", monospace;
 }
 
-/* 如果是 text 字段也需要调整 */
+/* ---------- 类型标尺：13 / 15 / 17 / 21 / 27 / 35（base = 17） ---------- */
+:root {
+  --mp-text-xs: 13px;
+  --mp-text-sm: 15px;
+  --mp-text-base: 17px;
+  --mp-text-lg: 21px;
+  --mp-text-xl: 27px;
+  --mp-text-2xl: 35px;
+
+  --vp-layout-max-width: 1440px;
+}
+
+/* ============================================================
+ * 浅色主题 —— surface 暖白 #FBFBF9 / text #1C293C
+ * 两个主题独立调校，不机械互为反转
+ * ============================================================ */
+:root {
+  /* 品牌黄：仅用于 CTA、focus、激活态 */
+  --vp-c-brand-1: #b78c00;              /* AA 对比度下可读的黄（文本/链接用） */
+  --vp-c-brand-2: #a37c00;
+  --vp-c-brand-3: #fdc800;              /* 纯品牌黄（按钮底色） */
+  --vp-c-brand-soft: rgba(253, 200, 0, 0.14);
+  --vp-c-brand-softer: rgba(253, 200, 0, 0.08);
+
+  /* 表面层：暖白而非纯白，呼应 impeccable 里的 #FBFBF9 */
+  --vp-c-bg: #fbfbf9;
+  --vp-c-bg-alt: #f4f3ef;
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: #f4f3ef;
+
+  /* 文本层级 */
+  --vp-c-text-1: #1c293c;
+  --vp-c-text-2: #53607a;
+  --vp-c-text-3: #8591a5;
+
+  /* 分割线 —— 工具感需要边界清晰，略强于默认 */
+  --vp-c-divider: #e3e1da;
+  --vp-c-gutter: #e3e1da;
+  --vp-c-border: #d9d6cc;
+
+  /* 语义色 */
+  --vp-c-success-1: #16a34a;
+  --vp-c-success-soft: rgba(22, 163, 74, 0.12);
+  --vp-c-warning-1: #d97706;
+  --vp-c-warning-soft: rgba(217, 119, 6, 0.12);
+  --vp-c-danger-1: #dc2626;
+  --vp-c-danger-soft: rgba(220, 38, 38, 0.12);
+
+  /* 代码块：等宽文本天然带视觉标签 */
+  --vp-code-bg: #f1efe7;
+  --vp-code-color: #1c293c;
+  --vp-code-block-bg: #f4f3ef;
+}
+
+/* ============================================================
+ * 深色主题 —— 独立调校，不是浅色反色
+ * ============================================================ */
+.dark {
+  --vp-c-brand-1: #fdc800;              /* 深色背景上品牌黄可直接用作链接色 */
+  --vp-c-brand-2: #ffd633;
+  --vp-c-brand-3: #fdc800;
+  --vp-c-brand-soft: rgba(253, 200, 0, 0.18);
+  --vp-c-brand-softer: rgba(253, 200, 0, 0.10);
+
+  --vp-c-bg: #0f1218;
+  --vp-c-bg-alt: #161a22;
+  --vp-c-bg-elv: #1a1f28;
+  --vp-c-bg-soft: #161a22;
+
+  --vp-c-text-1: #e8eaf0;
+  --vp-c-text-2: #a6adbb;
+  --vp-c-text-3: #6d7588;
+
+  --vp-c-divider: #232834;
+  --vp-c-gutter: #232834;
+  --vp-c-border: #2c3240;
+
+  --vp-code-bg: #161a22;
+  --vp-code-color: #e8eaf0;
+  --vp-code-block-bg: #12161d;
+}
+
+/* ============================================================
+ * Hero —— 克制：H1 上限 35px，副标 21px，不做大字 banner
+ * 原覆盖的 48px 与设计文档"H1 = 35"冲突，收回
+ * ============================================================ */
+.VPHero .name,
 .VPHero .text {
-  font-size: 48px !important;
+  font-size: var(--mp-text-2xl) !important;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+.VPHero .tagline {
+  font-size: var(--mp-text-lg) !important;
+  line-height: 1.5;
+  color: var(--vp-c-text-2);
+  font-weight: 400;
+}
+
+/* Hero 中的 feature 卡片：阴影克制、边界清晰 */
+.VPFeature {
+  border: 1px solid var(--vp-c-border);
+  border-radius: 0.5rem;
+  box-shadow: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-text-3);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transform: none;
+}
+
+.VPFeature .title {
+  font-size: var(--mp-text-base);
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.VPFeature .details {
+  font-size: var(--mp-text-sm);
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+}
+
+/* ============================================================
+ * 按钮体系 —— default = 主黄，alt = ghost，不用半强调 outline
+ * ============================================================ */
+.VPButton.brand {
+  background-color: var(--vp-c-brand-3);
+  border-color: var(--vp-c-brand-3);
+  color: #1c293c;                        /* 黄底必须黑字才过 AA */
+  font-weight: 600;
+}
+
+.VPButton.brand:hover {
+  background-color: #e6b500;
+  border-color: #e6b500;
+  color: #1c293c;
+}
+
+.VPButton.alt {
+  background-color: transparent;
+  border-color: var(--vp-c-border);
+  color: var(--vp-c-text-1);
+  font-weight: 500;
+}
+
+.VPButton.alt:hover {
+  background-color: var(--vp-c-bg-alt);
+  border-color: var(--vp-c-text-3);
+  color: var(--vp-c-text-1);
+}
+
+/* ============================================================
+ * 圆角统一到 0.5rem
+ * ============================================================ */
+:root {
+  --vp-code-block-radius: 0.5rem;
+}
+
+.VPButton,
+.custom-block,
+div[class*="language-"],
+.VPSidebarItem .link {
+  border-radius: 0.5rem;
+}
+
+/* ============================================================
+ * 代码 / 等宽文本：给"能复制进程序 / 粘进阅读器 / 终端执行"的
+ * 文本天然视觉标签
+ * ============================================================ */
+:not(pre) > code {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.9em;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background-color: var(--vp-code-bg);
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-1);
+}
+
+div[class*="language-"] {
+  background-color: var(--vp-code-block-bg);
+  border: 1px solid var(--vp-c-divider);
+}
+
+div[class*="language-"] pre code {
+  font-family: var(--vp-font-family-mono);
+  font-size: var(--mp-text-sm);
+  line-height: 1.6;
+}
+
+/* ============================================================
+ * Focus ring —— 品牌黄承担"正在这里"
+ * ============================================================ */
+*:focus-visible {
+  outline: 2px solid var(--vp-c-brand-3);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+ * 表格：工具感需要对齐、边界清晰，避免斑马纹喧宾夺主
+ * ============================================================ */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: var(--mp-text-sm);
+}
+
+.vp-doc th,
+.vp-doc td {
+  border: 1px solid var(--vp-c-divider);
+  padding: 8px 12px;
+}
+
+.vp-doc th {
+  background-color: var(--vp-c-bg-alt);
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.vp-doc tr:nth-child(2n) {
+  background-color: transparent;              /* 去掉斑马纹 */
+}
+
+/* ============================================================
+ * 正文节奏：base 17px，标题层级清晰
+ * ============================================================ */
+.vp-doc {
+  font-size: var(--mp-text-base);
+  line-height: 1.7;
+}
+
+.vp-doc h1 {
+  font-size: var(--mp-text-2xl);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+.vp-doc h2 {
+  font-size: var(--mp-text-xl);
+  line-height: 1.3;
+  font-weight: 600;
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 24px;
+  margin-top: 48px;
+}
+
+.vp-doc h3 {
+  font-size: var(--mp-text-lg);
+  line-height: 1.4;
+  font-weight: 600;
+}
+
+.vp-doc h4 {
+  font-size: var(--mp-text-base);
+  font-weight: 600;
+}
+
+/* ============================================================
+ * Custom block（tip / warning / danger）语义对齐
+ * ============================================================ */
+.custom-block.tip {
+  border-color: var(--vp-c-brand-3);
+  background-color: var(--vp-c-brand-softer);
+}
+
+.custom-block.warning {
+  border-color: var(--vp-c-warning-1);
+  background-color: var(--vp-c-warning-soft);
+}
+
+.custom-block.danger {
+  border-color: var(--vp-c-danger-1);
+  background-color: var(--vp-c-danger-soft);
+}
+
+/* ============================================================
+ * 侧栏激活态：品牌黄标"正在这里"
+ * ============================================================ */
+.VPSidebarItem.is-active > .item > .link > .text {
+  color: var(--vp-c-brand-1);
+  font-weight: 600;
+}
+
+.dark .VPSidebarItem.is-active > .item > .link > .text {
+  color: var(--vp-c-brand-3);
+}
+
+/* ============================================================
+ * 搜索 / 导航：阴影克制
+ * ============================================================ */
+.VPNavBar {
+  box-shadow: none;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.DocSearch-Button {
+  border-radius: 0.5rem;
+  border: 1px solid var(--vp-c-border);
+  box-shadow: none;
 }
