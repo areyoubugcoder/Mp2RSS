@@ -36,6 +36,6 @@ features:
     title: 3 天免费试用
     details: 注册即自动开通，试用期权益与正式会员完全相同，到期前站内显著提醒续费。
   - icon: 🤖
-    title: Open API 友好
+    title: API 友好
     details: 搜索公众号、订阅 / 取消、拉取文章全部可脚本化，便于接入自己的自动化流水线。
 ---
