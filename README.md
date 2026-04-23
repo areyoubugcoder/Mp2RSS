@@ -1,6 +1,10 @@
-# Mp2RSS
+<p align="center">
+  <img src="./docs/public/logo.png" alt="Mp2RSS" width="128" />
+</p>
 
-把微信公众号转成标准 Feed 的订阅服务 —— 在 Reeder、NetNewsWire、FreshRSS、Miniflux 等任意阅读器里，像订阅播客一样订阅公众号。
+<h1 align="center">Mp2RSS</h1>
+
+<p align="center">把微信公众号转成标准 Feed 的订阅服务 —— 在 Reeder、NetNewsWire、FreshRSS、Miniflux 等任意阅读器里，像订阅播客一样订阅公众号。</p>
 
 - 🌐 产品主站：<https://mp2rss.bugcode.dev>
 - 📖 使用文档：<https://areyoubugcoder.github.io/Mp2RSS/>
