@@ -31,7 +31,7 @@
 - [服务介绍](https://areyoubugcoder.github.io/Mp2RSS/guide/intro)
 - [订阅管理](https://areyoubugcoder.github.io/Mp2RSS/guide/subscription)
 - [会员与计费](https://areyoubugcoder.github.io/Mp2RSS/guide/membership)
-- [Open API 列表](https://areyoubugcoder.github.io/Mp2RSS/api/)
+- [API 列表](https://areyoubugcoder.github.io/Mp2RSS/api/)
 - [FAQ](https://areyoubugcoder.github.io/Mp2RSS/guide/faq)
 - [服务条款](https://areyoubugcoder.github.io/Mp2RSS/guide/terms-of-service)
 

@@ -16,7 +16,7 @@ hero:
       text: 服务介绍
       link: /guide/intro
     - theme: alt
-      text: Open API
+      text: API
       link: /api/
 
 features:
