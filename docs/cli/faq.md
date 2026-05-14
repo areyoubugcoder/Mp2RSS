@@ -122,7 +122,7 @@ npm update -g @mp2rss/cli
 直接重跑安装命令即可：
 
 ```bash
-curl -fsSL https://mp2rss.com/install.sh | sh
+curl -fsSL https://mp2rss.bugcode.dev/install.sh | sh
 ```
 
 脚本会发现已存在的二进制并覆盖到同一位置。可用 `VERSION=v0.2.0` 锁定具体版本。

@@ -34,12 +34,12 @@
 ## API 地址
 
 ```
-https://api.mp2rss.com
+https://mp2rss.bugcode.dev/api
 ```
 
 完整地址示例:
 ```
-https://api.mp2rss.com/open-api/subscriptions
+https://mp2rss.bugcode.dev/api/open-api/subscriptions
 ```
 
 ## API 鉴权

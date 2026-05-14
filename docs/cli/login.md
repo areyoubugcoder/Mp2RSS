@@ -22,7 +22,7 @@ mp2rss auth login
 2. CLI 终端打印授权 URL，并尝试自动打开浏览器：
 
    ```
-   https://mp2rss.com/cli/authorize?port=<port>&state=<nonce>&v=<cli-version>
+   https://mp2rss.bugcode.dev/cli/authorize?port=<port>&state=<nonce>&v=<cli-version>
    ```
 3. 在浏览器中：
    - 若未登录 Mp2RSS，会先走 GitHub / Google OAuth；
@@ -35,7 +35,7 @@ mp2rss auth login
 
 - **仅监听 127.0.0.1**：loopback server 不会绑定到外网接口，局域网内其他设备不可达。
 - **一次性路由**：server 只接受一次 `/cli/callback` 请求，处理完立刻关闭。
-- **Origin 白名单**：仅放行 `https://mp2rss.com`（生产）与本地开发地址。
+- **Origin 白名单**：仅放行 `https://mp2rss.bugcode.dev`（生产）与本地开发地址。
 - **state 防 CSRF**：CLI 每次生成 32 字节随机 nonce，回调若 `state` 不匹配直接拒绝。
 - **不打印密钥**：终端只显示「授权成功」字样，Feed 密钥不会以明文出现在 stdout、stderr 或终端历史中。
 
@@ -98,7 +98,7 @@ mp2rss auth status
 
 ```
 状态：已登录（来源：env）
-API：https://api.mp2rss.com
+API：https://mp2rss.bugcode.dev/api
 Feed Key：9f3a2c***
 上次校验：2026-05-14 11:23
 ```
@@ -113,7 +113,7 @@ Feed Key：9f3a2c***
 
 ```
 状态：未登录
-API：https://api.mp2rss.com
+API：https://mp2rss.bugcode.dev/api
 登录：mp2rss auth login
 ```
 
@@ -129,7 +129,7 @@ JSON 示例（字段命名与具体格式以代码实际输出为准）：
 {
   "loggedIn": true,
   "source": "env",
-  "apiUrl": "https://api.mp2rss.com",
+  "apiUrl": "https://mp2rss.bugcode.dev/api",
   "feedKeyMasked": "9f3a2c***",
   "lastLoginAt": 1747194198000,
   "lastVerifyAt": 1747194198000

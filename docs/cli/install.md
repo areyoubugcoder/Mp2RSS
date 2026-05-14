@@ -32,7 +32,7 @@ checksums.txt                                 # 每个 release 配套的 SHA-256
 ## 方式一：install.sh 一键安装（推荐 macOS / Linux）
 
 ```bash
-curl -fsSL https://mp2rss.com/install.sh | sh
+curl -fsSL https://mp2rss.bugcode.dev/install.sh | sh
 ```
 
 脚本会：
@@ -47,16 +47,16 @@ curl -fsSL https://mp2rss.com/install.sh | sh
 
 ```bash
 # 指定安装目录
-curl -fsSL https://mp2rss.com/install.sh | INSTALL_DIR="$HOME/.local/bin" sh
+curl -fsSL https://mp2rss.bugcode.dev/install.sh | INSTALL_DIR="$HOME/.local/bin" sh
 
 # 指定版本（默认最新）
-curl -fsSL https://mp2rss.com/install.sh | VERSION=v0.2.0 sh
+curl -fsSL https://mp2rss.bugcode.dev/install.sh | VERSION=v0.2.0 sh
 
 # 跳过 SHA-256 校验（仅在受信镜像 / 离线环境下使用）
-curl -fsSL https://mp2rss.com/install.sh | NO_VERIFY=1 sh
+curl -fsSL https://mp2rss.bugcode.dev/install.sh | NO_VERIFY=1 sh
 
 # 组合使用
-curl -fsSL https://mp2rss.com/install.sh \
+curl -fsSL https://mp2rss.bugcode.dev/install.sh \
   | INSTALL_DIR="$HOME/.local/bin" VERSION=v0.2.0 NO_VERIFY=1 sh
 ```
 

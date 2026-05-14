@@ -8,7 +8,7 @@
 | ---- | ---- | ------ |
 | `-o, --output {json\|table}` | 输出格式 | `table` |
 | `--api-key <key>` | 单次覆盖 Feed 密钥（优先级：环境变量 `MP2RSS_FEED_KEY` > 配置文件） | — |
-| `--api-url <url>` | 单次覆盖 API 地址（优先级：`--api-url` > `MP2RSS_API_URL` > 配置 > 默认值） | `https://api.mp2rss.com` |
+| `--api-url <url>` | 单次覆盖 API 地址（优先级：`--api-url` > `MP2RSS_API_URL` > 配置 > 默认值） | `https://mp2rss.bugcode.dev/api` |
 | `-h, --help` | 查看帮助 | — |
 | `--version` | 查看版本 | — |
 
@@ -262,7 +262,7 @@ mp2rss update --force        # 即使版本相同也强制重装
 ```json
 {
   "feed_key": "9f3a2c...（64 位 hex）",
-  "api_url": "https://api.mp2rss.com",
+  "api_url": "https://mp2rss.bugcode.dev/api",
   "last_login_at": 1747194198,
   "last_verify_at": 1747194198
 }
