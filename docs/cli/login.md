@@ -98,7 +98,7 @@ mp2rss auth status
 
 ```
 状态：已登录（来源：env）
-API：https://mp2rss.bugcode.dev/api
+API：https://mp2rss.bugcode.dev
 Feed Key：9f3a2c***
 上次校验：2026-05-14 11:23
 ```
@@ -113,7 +113,7 @@ Feed Key：9f3a2c***
 
 ```
 状态：未登录
-API：https://mp2rss.bugcode.dev/api
+API：https://mp2rss.bugcode.dev
 登录：mp2rss auth login
 ```
 
@@ -129,7 +129,7 @@ JSON 示例（字段命名与具体格式以代码实际输出为准）：
 {
   "loggedIn": true,
   "source": "env",
-  "apiUrl": "https://mp2rss.bugcode.dev/api",
+  "apiUrl": "https://mp2rss.bugcode.dev",
   "feedKeyMasked": "9f3a2c***",
   "lastLoginAt": 1747194198000,
   "lastVerifyAt": 1747194198000
