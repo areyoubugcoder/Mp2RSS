@@ -10,7 +10,7 @@
 | `--api-key <key>` | 单次覆盖 Feed 密钥（优先级：环境变量 `MP2RSS_FEED_KEY` > 配置文件） | — |
 | `--api-url <url>` | 单次覆盖 API 地址（优先级：`--api-url` > `MP2RSS_API_URL` > 配置 > 默认值） | `https://api.mp2rss.com` |
 | `-h, --help` | 查看帮助 | — |
-| `-v, --version` | 查看版本 | — |
+| `--version` | 查看版本 | — |
 
 ::: tip JSON 模式错误也走 stdout
 所有命令在 `-o json` 模式下，**错误也以 JSON 写入 stdout**（不是 stderr），便于 `jq` 等工具统一处理。错误结构：
@@ -154,21 +154,22 @@ mp2rss mp subscribe https://mp.weixin.qq.com/s/xxxxxxxxxx
 **JSON 输出：**
 
 ```json
-{ "ok": true }
+{ "ok": true, "articleUrl": "https://mp.weixin.qq.com/s/xxxxxxxxxx" }
 ```
 
 ### `mp2rss mp remove`
 
-取消订阅一个公众号。默认会要求交互确认，加 `--yes` 跳过确认。
+取消订阅一个公众号。默认会要求交互确认，加 `-y/--yes` 跳过确认。
 
 ```bash
 mp2rss mp remove 2234567
 mp2rss mp remove 2234567 --yes        # 跳过确认（脚本场景）
+mp2rss mp remove 2234567 -y           # 同上短写法
 ```
 
 | Flag | 默认 | 含义 |
 | ---- | ---- | ---- |
-| `--yes` | `false` | 跳过交互确认 |
+| `-y, --yes` | `false` | 跳过交互确认 |
 
 **HTTP 映射**：`DELETE /open-api/subscriptions/{mpId}`，成功返回 204。
 
@@ -215,16 +216,23 @@ mp2rss mp articles 2234567 -o json | jq '.items[].title'
 {
   "items": [
     {
+      "mpId": 2234567,
+      "articleId": "a1",
       "title": "示例文章标题 A",
-      "url": "https://mp.weixin.qq.com/s/aaa",
-      "publishedAt": 1776854096000
+      "summary": "文章摘要",
+      "coverImageUrl": null,
+      "originalUrl": "https://mp.weixin.qq.com/s/aaa",
+      "contentMarkdown": "# Hi\n\n这是一篇测试文章。",
+      "publishedAt": 1776854096000,
+      "updatedAt": 1776854100000
     }
-  ],
-  "total": 1,
-  "page": 1,
-  "pageSize": 100
+  ]
 }
 ```
+
+::: tip
+`mp articles` 响应**只含 `items`**，没有 `total / page / pageSize`。如果需要分页元信息，可通过 `--page` / `--page-size` 翻页并自行判断是否到达末页（items 数量小于 `--page-size` 即末页）。
+:::
 
 ## `mp2rss update`
 
@@ -242,15 +250,19 @@ mp2rss update --force        # 跳过版本对比强制更新
 
 ## 配置与环境变量
 
-`~/.mp2rss/config.json` 字段：
+`~/.mp2rss/config.json` 字段（落盘 schema 保持 snake_case）：
 
 ```json
 {
   "feed_key": "9f3a2c...（64 位 hex）",
   "api_url": "https://api.mp2rss.com",
-  "last_call_at": "2026-05-14T03:23:18Z"
+  "last_login_at": 1747194198,
+  "last_verify_at": 1747194198
 }
 ```
+
+- `last_login_at` / `last_verify_at` 为秒级 Unix 时间戳，分别记录最近一次成功登录与最近一次密钥校验成功的时刻。
+- 文件权限自动设为 `0600`、目录权限 `0700`。
 
 环境变量：
 

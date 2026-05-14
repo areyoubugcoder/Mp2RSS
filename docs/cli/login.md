@@ -97,10 +97,24 @@ mp2rss auth status
 输出示例（表格）：
 
 ```
-状态     已登录
-API      https://api.mp2rss.com
-Feed Key 9f3a2c***
-最近调用 2026-05-14 11:23
+状态：已登录（来源：env）
+API：https://api.mp2rss.com
+Feed Key：9f3a2c***
+上次校验：2026-05-14 11:23
+```
+
+`来源` 字段反映当前 Feed Key 从哪里读取：
+
+- `env`：来自环境变量 `MP2RSS_FEED_KEY`
+- `config`：来自 `~/.mp2rss/config.json`
+- `none`：未登录
+
+未登录时表格输出：
+
+```
+状态：未登录
+API：https://api.mp2rss.com
+登录：mp2rss auth login
 ```
 
 JSON 输出：
@@ -109,14 +123,19 @@ JSON 输出：
 mp2rss auth status -o json
 ```
 
+JSON 示例（字段命名与具体格式以代码实际输出为准）：
+
 ```json
 {
-  "logged_in": true,
-  "api_url": "https://api.mp2rss.com",
-  "feed_key_masked": "9f3a2c***",
-  "last_call_at": "2026-05-14T03:23:18Z"
+  "loggedIn": true,
+  "source": "env",
+  "apiUrl": "https://api.mp2rss.com",
+  "feedKeyMasked": "9f3a2c***",
+  "lastVerifyAt": 1747194198000
 }
 ```
+
+- `lastVerifyAt`：最近一次密钥校验成功的毫秒级 Unix 时间戳。
 
 ::: tip Feed 密钥永远不会明文输出
 `auth status` 只显示前 6 个字符 + `***` 的掩码形式。如果需要核对完整密钥，请到 Mp2RSS 控制台「账户设置」查看。
