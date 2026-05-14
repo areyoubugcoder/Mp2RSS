@@ -35,7 +35,7 @@ mp2rss mp list
 
 ```bash
 # 一键安装（推荐 macOS / Linux）
-curl -fsSL https://mp2rss.bugcode.dev/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/areyoubugcoder/mp2rss-cli/main/scripts/install.sh | sh
 
 # npm 包装（Node ≥ 18）
 pnpm add -g @mp2rss/cli

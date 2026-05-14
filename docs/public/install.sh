@@ -1,9 +1,9 @@
 #!/bin/sh
 # mp2rss-cli installer.
 #
-#   curl -fsSL https://mp2rss.bugcode.dev/install.sh | sh
-#   curl -fsSL https://mp2rss.bugcode.dev/install.sh | INSTALL_DIR=$HOME/bin sh
-#   curl -fsSL https://mp2rss.bugcode.dev/install.sh | VERSION=v0.2.0 NO_VERIFY=1 sh
+#   curl -fsSL https://raw.githubusercontent.com/areyoubugcoder/mp2rss-cli/main/scripts/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/areyoubugcoder/mp2rss-cli/main/scripts/install.sh | INSTALL_DIR=$HOME/bin sh
+#   curl -fsSL https://raw.githubusercontent.com/areyoubugcoder/mp2rss-cli/main/scripts/install.sh | VERSION=v0.2.0 NO_VERIFY=1 sh
 #
 # POSIX sh (compatible with bash 3.2, dash, busybox ash). shellcheck clean.
 set -eu
