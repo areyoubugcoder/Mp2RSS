@@ -131,11 +131,14 @@ JSON 示例（字段命名与具体格式以代码实际输出为准）：
   "source": "env",
   "apiUrl": "https://api.mp2rss.com",
   "feedKeyMasked": "9f3a2c***",
+  "lastLoginAt": 1747194198000,
   "lastVerifyAt": 1747194198000
 }
 ```
 
+- `lastLoginAt`：最近一次成功登录的毫秒级 Unix 时间戳。
 - `lastVerifyAt`：最近一次密钥校验成功的毫秒级 Unix 时间戳。
+- 未登录时（`loggedIn = false`）`lastLoginAt` / `lastVerifyAt` 字段会被省略。
 
 ::: tip Feed 密钥永远不会明文输出
 `auth status` 只显示前 6 个字符 + `***` 的掩码形式。如果需要核对完整密钥，请到 Mp2RSS 控制台「账户设置」查看。
