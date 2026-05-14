@@ -41,6 +41,7 @@ export default defineConfig({
     nav: [
       { text: "指南", link: "/guide/quick-start" },
       { text: "API 列表", link: "/api/" },
+      { text: "CLI", link: "/cli/" },
       { text: "FAQ", link: "/guide/faq" },
       {
         text: "立即使用",
@@ -87,6 +88,31 @@ export default defineConfig({
             {
               text: "Bug 反馈",
               link: "https://github.com/areyoubugcoder/Mp2RSS/issues",
+            },
+            {
+              text: "讨论区",
+              link: "https://github.com/areyoubugcoder/Mp2RSS/discussions",
+            },
+          ],
+        },
+      ],
+      "/cli/": [
+        {
+          text: "命令行工具 (CLI)",
+          items: [
+            { text: "简介", link: "/cli/" },
+            { text: "安装", link: "/cli/install" },
+            { text: "登录", link: "/cli/login" },
+            { text: "命令参考", link: "/cli/commands" },
+            { text: "FAQ", link: "/cli/faq" },
+          ],
+        },
+        {
+          text: "反馈",
+          items: [
+            {
+              text: "Bug 反馈",
+              link: "https://github.com/areyoubugcoder/mp2rss-cli/issues",
             },
             {
               text: "讨论区",

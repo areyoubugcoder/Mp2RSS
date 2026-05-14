@@ -23,6 +23,9 @@ hero:
     - theme: alt
       text: API
       link: /api/
+    - theme: alt
+      text: CLI
+      link: /cli/
 
 features:
   - icon: 🪶

@@ -1,0 +1,59 @@
+# 命令行工具 (mp2rss CLI)
+
+`mp2rss` 是 Mp2RSS 官方命令行工具，让你在终端里完成订阅、查询、管理公众号的全部操作，无需打开浏览器控制台。
+
+## 面向场景
+
+- **本地脚本化**：把订阅与文章查询接入自己的自动化脚本、cron、CI 流水线。
+- **多端管理**：在服务器、远程开发机、容器内无 GUI 环境下管理订阅。
+- **批量与回归**：通过 JSON 输出搭配 `jq` 做批量过滤、对账与回归。
+- **零依赖单文件**：CLI 是一个独立的二进制，没有运行时依赖。
+
+## 它能做什么
+
+- 通过浏览器登录或直接传入 Feed 密钥完成鉴权。
+- 列出、搜索、订阅、取消订阅公众号。
+- 查询单个公众号下的历史文章。
+- 同时支持 **表格** 与 **JSON** 两种输出模式，便于人眼阅读或脚本处理。
+
+## 快速上手
+
+```bash
+# 1. 登录（浏览器会自动打开 Mp2RSS 的授权页）
+mp2rss auth login
+
+# 2. 订阅一个公众号（粘贴任意一篇该号的文章链接）
+mp2rss mp subscribe https://mp.weixin.qq.com/s/xxxxxxxxxx
+
+# 3. 查看当前账户下的订阅
+mp2rss mp list
+```
+
+## 安装速览
+
+阶段一仅提供 **本地源码构建** 方式：
+
+```bash
+git clone https://github.com/areyoubugcoder/mp2rss-cli.git
+cd mp2rss-cli
+go build -o mp2rss .
+```
+
+::: tip 上线后可用的安装方式
+首个正式版本（v1.x）发布后将开放以下安装方式，安装文档届时一并补充：
+
+- Homebrew（macOS / Linux）
+- npm 包装 `@mp2rss/cli`
+- 一键安装脚本 `https://mp2rss.com/install.sh`
+- 直接从 GitHub Releases 下载对应平台二进制
+
+:::
+
+详细安装步骤见 [安装](./install)。
+
+## 下一步
+
+- [安装](./install)：本地构建步骤、平台兼容性。
+- [登录](./login)：三条登录路径（默认浏览器、Feed 密钥、无浏览器）。
+- [命令参考](./commands)：完整命令、参数、退出码、示例。
+- [FAQ](./faq)：常见问题与排查。
