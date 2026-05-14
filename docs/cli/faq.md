@@ -84,6 +84,58 @@ mp2rss mp list -o json
 
 CLI 在写入时会强制设置上述权限。如果权限被外部修改成更宽松的值，下次写入会自动恢复。
 
+## 如何更新到最新版本？
+
+按安装方式选择对应的更新路径：
+
+### 推荐：`mp2rss update`（任何安装方式通用）
+
+```bash
+mp2rss update              # 检查并升级到最新 release
+mp2rss update --check      # 只检查，不下载
+mp2rss update --force      # 即使版本相同也强制重装
+```
+
+行为细节：
+
+- 查询 `https://api.github.com/.../releases/latest`，与本地版本比对（语义版本，预发布版本视为更老）。
+- 下载平台归档 + `checksums.txt`，校验 SHA-256。
+- 暂存为 `<selfpath>.new` 后 `os.Rename` 原子替换；Windows 会先把旧二进制改名 `.old` 再换入，避免「文件正在使用」。
+- macOS 会自动 `xattr -d com.apple.quarantine` 去掉 Gatekeeper 隔离属性。
+
+::: tip 通过包管理器装的，仍可用 `mp2rss update` 吗？
+可以，但**推荐改用对应包管理器**，避免覆盖被包管理器接管的文件——下次包管理器升级时可能出现哈希校验冲突。
+:::
+
+### npm / pnpm 安装的场景
+
+```bash
+pnpm up -g @mp2rss/cli
+# 或
+npm update -g @mp2rss/cli
+```
+
+`postinstall` 会重新拉对应版本的二进制并校验 SHA-256。
+
+### install.sh 安装的场景
+
+直接重跑安装命令即可：
+
+```bash
+curl -fsSL https://mp2rss.com/install.sh | sh
+```
+
+脚本会发现已存在的二进制并覆盖到同一位置。可用 `VERSION=v0.2.0` 锁定具体版本。
+
+### 源码构建的场景
+
+```bash
+cd /path/to/mp2rss-cli
+git pull
+make build
+sudo install -m 0755 mp2rss /usr/local/bin/mp2rss
+```
+
 ## 怎么完全卸载并清理本地痕迹？
 
 ```bash
@@ -93,8 +145,10 @@ mp2rss auth logout
 # 2. 删除配置目录
 rm -rf ~/.mp2rss
 
-# 3. 从 PATH 中删掉二进制
-sudo rm /usr/local/bin/mp2rss   # 或你自己放置的位置
+# 3. 从 PATH 中删掉二进制（按你的安装方式选一种）
+sudo rm /usr/local/bin/mp2rss          # install.sh / 源码构建 / 直接下载
+rm "$HOME/.local/bin/mp2rss"           # install.sh 默认目录
+pnpm rm -g @mp2rss/cli                 # npm / pnpm / yarn 安装
 ```
 
 ## 怎么报 Bug / 提需求？

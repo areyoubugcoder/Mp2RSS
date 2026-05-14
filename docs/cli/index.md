@@ -31,25 +31,23 @@ mp2rss mp list
 
 ## 安装速览
 
-阶段一仅提供 **本地源码构建** 方式：
+四种方式，按场景任选其一：
 
 ```bash
-git clone https://github.com/areyoubugcoder/mp2rss-cli.git
-cd mp2rss-cli
-go build -o mp2rss .
+# 一键安装（推荐 macOS / Linux）
+curl -fsSL https://mp2rss.com/install.sh | sh
+
+# npm 包装（Node ≥ 18）
+pnpm add -g @mp2rss/cli
+
+# 直接下载
+# https://github.com/areyoubugcoder/mp2rss-cli/releases/latest
+
+# 源码构建（Go ≥ 1.21）
+git clone https://github.com/areyoubugcoder/mp2rss-cli.git && cd mp2rss-cli && make build
 ```
 
-::: tip 上线后可用的安装方式
-首个正式版本（v1.x）发布后将开放以下安装方式，安装文档届时一并补充：
-
-- Homebrew（macOS / Linux）
-- npm 包装 `@mp2rss/cli`
-- 一键安装脚本 `https://mp2rss.com/install.sh`
-- 直接从 GitHub Releases 下载对应平台二进制
-
-:::
-
-详细安装步骤见 [安装](./install)。
+详细步骤、环境变量覆盖与卸载指引见 [安装](./install)。
 
 ## 下一步
 

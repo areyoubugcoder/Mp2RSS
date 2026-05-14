@@ -236,16 +236,23 @@ mp2rss mp articles 2234567 -o json | jq '.items[].title'
 
 ## `mp2rss update`
 
-自更新命令。
+自更新到 GitHub Releases 的最新版本。
 
 ```bash
 mp2rss update                # 检查并执行更新
 mp2rss update --check        # 只检查不更新
-mp2rss update --force        # 跳过版本对比强制更新
+mp2rss update --force        # 即使版本相同也强制重装
 ```
 
-::: warning 当前阶段为占位实现
-当前版本执行该命令仅会提示「自更新功能将在 v1.x 版本启用」。完整功能（拉取最新 release 并原子替换）将在 v1.x 上线时启用。
+行为：
+
+1. 查询 `https://api.github.com/.../releases/latest`，按语义版本与本地比对（预发布版本视为更老）。
+2. 下载对应平台归档 + `checksums.txt`，校验 SHA-256。
+3. 暂存为 `<selfpath>.new` 后 `os.Rename` **原子替换**；Windows 下若旧二进制被占用，会先改名 `.old` 再换入。
+4. macOS 自动 `xattr -d com.apple.quarantine` 去掉 Gatekeeper 隔离属性。
+
+::: tip 通过 npm / 包管理器装的怎么升级？
+仍可用 `mp2rss update`，但**推荐改用对应包管理器**（如 `pnpm up -g @mp2rss/cli`），避免下次包管理器升级时哈希校验冲突。详见 [FAQ](./faq#如何更新到最新版本)。
 :::
 
 ## 配置与环境变量
