@@ -29,6 +29,34 @@ mp2rss mp subscribe https://mp.weixin.qq.com/s/xxxxxxxxxx
 mp2rss mp list
 ```
 
+## 安装速览
+
+四种方式，按场景任选其一，详细步骤、环境变量覆盖与卸载指引见 [安装](./install)。
+
+**一键安装（推荐 macOS / Linux）**
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/areyoubugcoder/mp2rss-cli/main/scripts/install.sh | sh
+```
+
+**npm 包装（Node ≥ 18）**
+
+```bash
+pnpm add -g @mp2rss/cli
+```
+
+**直接下载（GitHub Releases）**
+
+```
+https://github.com/areyoubugcoder/mp2rss-cli/releases/latest
+```
+
+**源码构建（Go ≥ 1.21）**
+
+```bash
+git clone https://github.com/areyoubugcoder/mp2rss-cli.git && cd mp2rss-cli && make build
+```
+
 ## 使用场景演示
 
 CLI 是纯文本接口、输出稳定，可直接被 AI Agent 封装为技能调用。下面是在 **Pi Coding Agent** 中通过自然语言驱动 `mp2rss` 的两个真实片段：
@@ -44,26 +72,6 @@ CLI 是纯文本接口、输出稳定，可直接被 AI Agent 封装为技能调
 直接问「我订阅了哪些公众号」，Agent 会调用 `mp2rss mp list` 并把表格结果整理成易读格式：
 
 ![在 Pi Coding Agent 中查看订阅列表](/agent-list.png)
-
-## 安装速览
-
-四种方式，按场景任选其一：
-
-```bash
-# 一键安装（推荐 macOS / Linux）
-curl -fsSL https://raw.githubusercontent.com/areyoubugcoder/mp2rss-cli/main/scripts/install.sh | sh
-
-# npm 包装（Node ≥ 18）
-pnpm add -g @mp2rss/cli
-
-# 直接下载
-# https://github.com/areyoubugcoder/mp2rss-cli/releases/latest
-
-# 源码构建（Go ≥ 1.21）
-git clone https://github.com/areyoubugcoder/mp2rss-cli.git && cd mp2rss-cli && make build
-```
-
-详细步骤、环境变量覆盖与卸载指引见 [安装](./install)。
 
 ## 下一步
 
