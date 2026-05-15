@@ -29,6 +29,22 @@ mp2rss mp subscribe https://mp.weixin.qq.com/s/xxxxxxxxxx
 mp2rss mp list
 ```
 
+## 使用场景演示
+
+CLI 是纯文本接口、输出稳定，可直接被 AI Agent 封装为技能调用。下面是在 **Pi Coding Agent** 中通过自然语言驱动 `mp2rss` 的两个真实片段：
+
+### 一句话订阅公众号
+
+把任意一篇公众号文章链接丢给 Agent，它会自动调用 `mp2rss mp subscribe` 完成订阅：
+
+![在 Pi Coding Agent 中一句话订阅公众号](/订阅公众号.png)
+
+### 自然语言查看订阅列表
+
+直接问「我订阅了哪些公众号」，Agent 会调用 `mp2rss mp list` 并把表格结果整理成易读格式：
+
+![在 Pi Coding Agent 中查看订阅列表](/订阅列表.png)
+
 ## 安装速览
 
 四种方式，按场景任选其一：
