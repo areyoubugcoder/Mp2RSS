@@ -43,12 +43,6 @@
 
 订阅配额、Feed 密钥共用同一套规则。
 
-### 为什么订阅 X 要使用 `xUserId` 而不是 `@handle`？怎么拿到 `xUserId`？
-
-X 的 `@handle`（username）允许用户随时修改，但 `xUserId` 是 X 内部的不可变 user_id，所以 Mp2RSS 以 `xUserId` 为业务键。拿到 `xUserId` 的方式：
-
-- **控制台搜索**：在「添加订阅 → X」搜索框输入 displayName 或 username 模糊关键字，从候选结果里选——这是唯一的搜索入口。
-
 ### 能用 Open API / CLI 搜索或订阅 X 账号吗？
 
 不能。**X 账号搜索与 X 订阅 / 取消订阅仅在 Web 控制台提供**，Open API 与 CLI 都不暴露这些写类端点。脚本场景的标准做法是：
