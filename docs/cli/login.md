@@ -33,11 +33,9 @@ mp2rss auth login
 
 ### 安全要点
 
-- **仅监听 127.0.0.1**：loopback server 不会绑定到外网接口，局域网内其他设备不可达。
-- **一次性路由**：server 只接受一次 `/cli/callback` 请求，处理完立刻关闭。
-- **Origin 白名单**：仅放行 `https://mp2rss.bugcode.dev`（生产）与本地开发地址。
-- **state 防 CSRF**：CLI 每次生成 32 字节随机 nonce，回调若 `state` 不匹配直接拒绝。
-- **不打印密钥**：终端只显示「授权成功」字样，Feed 密钥不会以明文出现在 stdout、stderr 或终端历史中。
+- loopback server 仅监听 `127.0.0.1` 且只接受一次 `/cli/callback` 请求，处理完立刻关闭；
+- 用 32 字节随机 state 防 CSRF；
+- 密钥不会以明文出现在 stdout、stderr 或终端历史中。
 
 ## 路径二：直接传入 Feed 密钥
 
@@ -139,10 +137,6 @@ JSON 示例（字段命名与具体格式以代码实际输出为准）：
 - `lastLoginAt`：最近一次成功登录的毫秒级 Unix 时间戳。
 - `lastVerifyAt`：最近一次密钥校验成功的毫秒级 Unix 时间戳。
 - 未登录时（`loggedIn = false`）`lastLoginAt` / `lastVerifyAt` 字段会被省略。
-
-::: tip Feed 密钥永远不会明文输出
-`auth status` 只显示前 6 个字符 + `***` 的掩码形式。如果需要核对完整密钥，请到 Mp2RSS 控制台「账户设置」查看。
-:::
 
 ## 退出登录
 

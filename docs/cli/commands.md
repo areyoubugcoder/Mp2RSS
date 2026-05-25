@@ -1,6 +1,6 @@
 # 命令参考
 
-## 全局 flag
+## 全局 flag {#global-flags}
 
 适用于所有子命令：
 
@@ -21,7 +21,7 @@
 
 :::
 
-## 退出码
+## 退出码 {#exit-codes}
 
 | 码 | 含义 |
 | -- | ---- |
@@ -30,13 +30,13 @@
 | `2` | 参数错误（缺失、格式不正确） |
 | `3` | 鉴权失败（Feed 密钥缺失或无效） |
 | `4` | 资源不存在（如 mpId 找不到） |
-| `5` | 上游服务不可用 |
+| `5` | 数据源不可用 |
 
-## `mp2rss auth`
+## `mp2rss auth` {#auth}
 
 鉴权相关子命令，详细使用见 [登录](./login)。
 
-### `mp2rss auth login`
+### `mp2rss auth login` {#auth-login}
 
 完成首次登录，把 Feed 密钥写入 `~/.mp2rss/config.json`。
 
@@ -52,7 +52,7 @@ mp2rss auth login --no-browser          # 远程 / 无浏览器
 | `-k, --feed-key <key>` | 跳过浏览器直接落盘 |
 | `--no-browser` | 不打开浏览器、不起 loopback，由用户手动粘贴密钥 |
 
-### `mp2rss auth logout`
+### `mp2rss auth logout` {#auth-logout}
 
 清空配置中的 `feed_key`，保留 `api_url`。
 
@@ -60,7 +60,7 @@ mp2rss auth login --no-browser          # 远程 / 无浏览器
 mp2rss auth logout
 ```
 
-### `mp2rss auth status`
+### `mp2rss auth status` {#auth-status}
 
 显示登录状态、API 地址、Feed 密钥掩码、最近一次成功调用时间。
 
@@ -69,11 +69,11 @@ mp2rss auth status
 mp2rss auth status -o json
 ```
 
-## `mp2rss mp`
+## `mp2rss mp` {#mp}
 
-公众号订阅与文章相关子命令。
+公众号订阅与文章相关子命令。X 信息源对应子命令见下方 [`mp2rss x`](#x)。
 
-### `mp2rss mp list`
+### `mp2rss mp list` {#mp-list}
 
 列出当前账户下的订阅。
 
@@ -119,7 +119,7 @@ MP_ID    公众号             最新文章               订阅时间
 }
 ```
 
-### `mp2rss mp search`
+### `mp2rss mp search` {#mp-search}
 
 `mp list -q <keyword>` 的语法糖。
 
@@ -135,7 +135,7 @@ mp2rss mp search 公众号 -p 2
 
 **HTTP 映射**：`GET /open-api/subscriptions?q=<keyword>`
 
-### `mp2rss mp subscribe`
+### `mp2rss mp subscribe` {#mp-subscribe}
 
 通过任意一篇该公众号的文章链接发起订阅。
 
@@ -157,7 +157,7 @@ mp2rss mp subscribe https://mp.weixin.qq.com/s/xxxxxxxxxx
 { "ok": true, "articleUrl": "https://mp.weixin.qq.com/s/xxxxxxxxxx" }
 ```
 
-### `mp2rss mp remove`
+### `mp2rss mp remove` {#mp-remove}
 
 取消订阅一个公众号。默认会要求交互确认，加 `-y/--yes` 跳过确认。
 
@@ -185,7 +185,7 @@ mp2rss mp remove 2234567 -y           # 同上短写法
 { "ok": true, "mpId": 2234567 }
 ```
 
-### `mp2rss mp articles`
+### `mp2rss mp articles` {#mp-articles}
 
 查询某公众号的历史文章列表。
 
@@ -234,7 +234,153 @@ mp2rss mp articles 2234567 -o json | jq '.items[].title'
 `mp articles` 响应**只含 `items`**，没有 `total / page / pageSize`。如果需要分页元信息，可通过 `--page` / `--page-size` 翻页并自行判断是否到达末页（items 数量小于 `--page-size` 即末页）。
 :::
 
-## `mp2rss update`
+## `mp2rss x` {#x}
+
+X（Twitter）信息源相关子命令。覆盖 3 个动词：`list / posts / articles`。
+
+::: warning X 搜索 / 订阅 / 取消订阅仅在 Web 控制台
+X 账号**搜索**与**订阅 / 取消订阅**仅由 Web 控制台提供——CLI 与 Open API 都不暴露这些写类端点。
+脚本场景的标准做法：
+
+1. 在 Web 控制台「订阅管理 → X」完成搜索 + 订阅；
+2. 再用 `mp2rss x list` 列出已订阅账号、`mp2rss x posts / x articles <xUserId>` 拉取内容。
+
+`xUserId` 是 X 账号的唯一数字 ID（不是 `@handle`，handle 可变更但 xUserId 稳定），需从 `mp2rss x list` 输出中取：
+```bash
+mp2rss x list -o json | jq -r '.items[] | "\(.xUserId)\t@\(.xUsername)\t\(.xDisplayName)"'
+```
+:::
+
+### `mp2rss x list` {#x-list}
+
+列出当前 Feed 密钥下已订阅的全部 X 账号。
+
+```bash
+mp2rss x list
+mp2rss x list -q elon                    # 按 displayName / username 模糊搜索
+mp2rss x list -p 2 --page-size 20
+mp2rss x list -o json | jq '.items[].xUserId'
+```
+
+| Flag | 默认 | 含义 |
+| ---- | ---- | ---- |
+| `-q, --query <kw>` | — | 按 displayName / username 模糊匹配（服务端支持时生效） |
+| `-p, --page <n>` | `1` | 页码 |
+| `--page-size <n>` | `20` | 每页记录数（最大 50） |
+
+**HTTP 映射**：`GET /open-api/subscriptions?sourceType=x`
+
+**表格输出示例：**
+
+```
+X_USER_ID         用户名              显示名                    认证  最新内容             订阅时间
+44196397          @elonmusk          Elon Musk                ✓     2026-05-13 09:14    2026-04-20 17:31
+```
+
+**JSON 输出示例：**
+
+```json
+{
+  "items": [
+    {
+      "sourceType": "x",
+      "xUserId": "44196397",
+      "xUsername": "elonmusk",
+      "xDisplayName": "Elon Musk",
+      "xVerified": true,
+      "createdAt": 1776640000000,
+      "xLastItemAt": 1776854096000
+    }
+  ],
+  "total": 1,
+  "page": 1,
+  "pageSize": 20
+}
+```
+
+### `mp2rss x posts` {#x-posts}
+
+按 `postedAt DESC` 拉取已订阅 X 账号的推文流。**仅允许查询已订阅**的 xUserId，
+未订阅返回 404 `X account is not subscribed`（退出码 4）。
+
+```bash
+mp2rss x posts 44196397
+mp2rss x posts 44196397 -p 2 --page-size 20
+mp2rss x posts 44196397 -o json | jq '.items[].content'
+```
+
+| Flag | 默认 | 含义 |
+| ---- | ---- | ---- |
+| `-p, --page <n>` | `1` | 页码 |
+| `--page-size <n>` | `20` | 每页记录数（**最大 50**） |
+
+**HTTP 映射**：`GET /open-api/x/{xUserId}/posts`
+
+**JSON 输出示例：**
+
+```json
+{
+  "items": [
+    {
+      "postId": "1234567890",
+      "content": "hello world",
+      "media": [{ "url": "https://x.com/img.jpg", "type": "photo" }],
+      "retweetedPost": null,
+      "quotedPost": null,
+      "threadPosts": [{ "content": "reply 1" }],
+      "postedAt": 1746864000000
+    }
+  ],
+  "total": 42,
+  "page": 1,
+  "pageSize": 20
+}
+```
+
+::: tip 结构化 vs 渲染
+本端点返回**结构化原始数据**（含 media / quotedPost / threadPosts），供脚本 / 自定义渲染消费；
+要订阅供阅读器订阅请走 Feed 公开层 `/feed/:token/rss/x-posts/...`。
+:::
+
+### `mp2rss x articles` {#x-articles}
+
+按 `publishedAt DESC` 拉取已订阅 X 账号的长文（Articles）流。同样仅允许查询已订阅。
+
+```bash
+mp2rss x articles 44196397
+mp2rss x articles 44196397 -o json | jq '.items[].url'
+```
+
+| Flag | 默认 | 含义 |
+| ---- | ---- | ---- |
+| `-p, --page <n>` | `1` | 页码 |
+| `--page-size <n>` | `20` | 每页记录数（**最大 50**） |
+
+**HTTP 映射**：`GET /open-api/x/{xUserId}/articles`
+
+**JSON 输出示例：**
+
+```json
+{
+  "items": [
+    {
+      "url": "https://x.com/elonmusk/article/...",
+      "title": "My take on...",
+      "description": "summary",
+      "contentMarkdown": "# Heading\n\nfull body markdown source",
+      "coverUrl": "https://...",
+      "publishedAt": 1747353600000
+    }
+  ],
+  "total": 8,
+  "page": 1,
+  "pageSize": 20
+}
+```
+
+`contentMarkdown` 为长文的 markdown **原文**，可能为 `null`。
+
+## `mp2rss update` {#update}
 
 自更新到 GitHub Releases 的最新版本。
 
@@ -255,7 +401,7 @@ mp2rss update --force        # 即使版本相同也强制重装
 仍可用 `mp2rss update`，但**推荐改用对应包管理器**（如 `pnpm up -g @mp2rss/cli`），避免下次包管理器升级时哈希校验冲突。详见 [FAQ](./faq#如何更新到最新版本)。
 :::
 
-## 配置与环境变量
+## 配置与环境变量 {#config-env}
 
 `~/.mp2rss/config.json` 字段（落盘 schema 保持 snake_case）：
 
@@ -278,6 +424,6 @@ mp2rss update --force        # 即使版本相同也强制重装
 | `MP2RSS_FEED_KEY` | 覆盖 Feed 密钥 | 高于配置文件、低于 `--api-key` |
 | `MP2RSS_API_URL` | 覆盖 API 地址 | 高于配置文件、低于 `--api-url` |
 
-## 下一步
+## 下一步 {#next-steps}
 
 - [FAQ](./faq)

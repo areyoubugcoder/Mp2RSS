@@ -178,10 +178,6 @@ make build              # 等价于 go build -trimpath -ldflags="-s -w" -o mp2rs
 sudo install -m 0755 mp2rss /usr/local/bin/mp2rss
 ```
 
-::: tip 关于体积
-默认 `go build` 出来约 12–14 MB；`make build` 会附加 `-trimpath -ldflags="-s -w"`，压缩到 ~10 MB。
-:::
-
 ### 卸载
 
 ```bash

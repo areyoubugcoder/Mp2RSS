@@ -21,12 +21,9 @@ CLI 在终端会同时**打印**完整的授权 URL，复制到浏览器手动�
 
 ## loopback 端口被占用怎么办？
 
-CLI 每次在 `127.0.0.1` 上**随机选一个 `> 1024` 的空闲端口**，正常情况下不会冲突。如果遇到极端冲突，重新执行 `mp2rss auth login` 即可——下一次会重新选端口。
+CLI 每次随机选空闲端口，重新执行 `mp2rss auth login` 即可。
 
-如果你所处的环境有严格的本地防火墙规则（例如企业安全软件拦截了所有未签名进程监听本地端口），请改用：
-
-- `mp2rss auth login -k <feed-key>`，或
-- `mp2rss auth login --no-browser`。
+若本地防火墙拦截监听本地端口，请改用 `mp2rss auth login -k <feed-key>` 或 `mp2rss auth login --no-browser`。
 
 ## SSH 远程环境如何登录？
 
@@ -150,6 +147,31 @@ sudo rm /usr/local/bin/mp2rss          # install.sh / 源码构建 / 直接下�
 rm "$HOME/.local/bin/mp2rss"           # install.sh 默认目录
 pnpm rm -g @mp2rss/cli                 # npm / pnpm / yarn 安装
 ```
+
+## CLI 能用 `x search / x subscribe / x remove` 吗？
+
+不能。**X 账号搜索与 X 订阅 / 取消订阅仅在 Web 控制台提供**，CLI 与 Open API 都不暴露这些写类端点。脚本场景的标准做法是：
+
+1. 在 Web 控制台「订阅管理 → X」完成 X 账号搜索 + 订阅；
+2. 再用 `mp2rss x list` 列出已订阅 X 账号、`mp2rss x posts / x articles <xUserId>` 拉取内容。
+
+## 为什么 `x posts` / `x articles` 要 `xUserId` 而不是 `@handle`？
+
+CLI 与 Open API 都只接受 **X 账号的唯一数字 ID**（`xUserId`），不接受 `@handle`：
+
+- **handle 可改**：用户随时改昵称会让订阅指向变化；`xUserId` 是不可变的全局 ID。
+- **来源唯一**：在 Web 控制台完成订阅后，用 `mp2rss x list` 即可拿到 `xUserId`：
+
+  ```bash
+  $ mp2rss x list -o json | jq '.items[] | {xUserId, xUsername, xDisplayName}'
+  {
+    "xUserId": "44196397",
+    "xUsername": "elonmusk",
+    "xDisplayName": "Elon Musk"
+  }
+  ```
+
+  然后 `mp2rss x posts 44196397` 即可。
 
 ## 怎么报 Bug / 提需求？
 
