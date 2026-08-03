@@ -47,8 +47,8 @@ features:
     title: 无需微信账号
     details: 使用 GitHub / Google OAuth 即可注册；隐私与便捷兼得，不挂微信、不刷手机。
   - icon: 🎁
-    title: 3 天免费试用
-    details: 注册即自动开通，试用期权益与正式会员完全相同，到期前站内显著提醒续费。
+    title: 多档订阅任选
+    details: 50 / 100 / 400 订阅上限三档按需选择，功能权益全档一致；升档立即生效，续费时长自动叠加。
   - icon: 🤖
     title: 全平台 Open API
     details: MP / X 两类信息源的订阅、搜索、文章 / 推文 / 长文拉取，均通过统一 Open API 暴露，便于脚本化接入。

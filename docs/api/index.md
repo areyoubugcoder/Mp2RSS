@@ -13,7 +13,7 @@ Mp2RSS Open API 面向第三方脚本与自动化场景，统一以 `Authorizati
 | `mp`       | 微信公众号订阅 | `mpId`（整数） |
 | `x`        | X（Twitter）账号订阅 | `xUserId`（字符串，X 的 user_id 数字串） |
 
-MP 的订阅 CRUD 走 `/open-api/subscriptions/*`；X 的订阅 / 取消订阅请在 Web 控制台完成。订阅配额 MP + X 合并计算。
+MP 的订阅 CRUD 走 `/open-api/subscriptions/*`；X 的订阅 / 取消订阅请在 Web 控制台完成。订阅配额 MP + X 合并计算，上限由所购[套餐档位](../guide/membership.md)决定。
 
 ## HTTP 状态码说明 {#http-status-codes}
 
