@@ -8,6 +8,7 @@ description: 微信公众号文章数据在舆情监测、投研情报、内容�
 微信公众号沉淀了大量高质量的一手内容，但它没有公开的订阅接口，获取和沉淀这些内容一直不容易。这里分享公众号文章数据在真实工作中的用法：舆情监测、投研情报、内容监测、AI 工作流 / RAG、个人知识库——如何把公众号文章变成可订阅、可检索、可编程的数据，接入自己的工具链。
 
 <script setup>
+import { withBase } from 'vitepress'
 import { data as posts } from './posts.data.ts'
 </script>
 
@@ -15,7 +16,7 @@ import { data as posts } from './posts.data.ts'
   <li v-for="post of posts" :key="post.url" class="blog-post-item">
     <div class="blog-post-date">{{ post.date }}</div>
     <div>
-      <a :href="post.url" class="blog-post-title">{{ post.title }}</a>
+      <a :href="withBase(post.url)" class="blog-post-title">{{ post.title }}</a>
       <p class="blog-post-desc">{{ post.description }}</p>
     </div>
   </li>
