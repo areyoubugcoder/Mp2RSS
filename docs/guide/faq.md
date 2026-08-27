@@ -1,3 +1,20 @@
+---
+description: Mp2RSS 常见问题 —— 公众号订阅、Feed 格式、更新时效、Feed 密钥与计费规则
+head:
+  - - script
+    - type: application/ld+json
+    - >-
+      {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+      {"@type":"Question","name":"Mp2RSS 支持哪些信息源？","acceptedAnswer":{"@type":"Answer","text":"当前支持微信公众号（MP）与 X（Twitter）账号两类信息源；订阅、Feed 输出、Open API、CLI 都把两类源对齐为同一套语义。"}},
+      {"@type":"Question","name":"Mp2RSS 支持哪些 Feed 格式？","acceptedAnswer":{"@type":"Answer","text":"支持 RSS 2.0 / Atom 1.0 / JSON Feed 1.1 / OPML 2.0，不同格式之间内容保持一致。"}},
+      {"@type":"Question","name":"使用 Mp2RSS 需要微信账号吗？","acceptedAnswer":{"@type":"Answer","text":"不需要。使用 GitHub / Google OAuth 登录即可，不必登录微信或扫码授权。"}},
+      {"@type":"Question","name":"能从一篇公众号文章直接订阅整个公众号吗？","acceptedAnswer":{"@type":"Answer","text":"可以。在「添加订阅」里贴入任意一篇公众号文章的 URL，系统会反查识别其来源公众号并完成订阅。"}},
+      {"@type":"Question","name":"公众号新文章多久会出现在 Feed 里？","acceptedAnswer":{"@type":"Answer","text":"系统周期性抓取信息源的新内容，从源站发布到 Feed 可见平均需要 2–3 小时。首次订阅不回溯历史文章，只收录订阅之后新发布的内容。"}},
+      {"@type":"Question","name":"单个账户最多能订阅多少个信息源？","acceptedAnswer":{"@type":"Answer","text":"由所购套餐档位决定：当前在售 50 / 100 / 400 个三档（月付 49 / 99 / 399 元），公众号与 X 账号合并计算，功能权益全档一致。"}},
+      {"@type":"Question","name":"Feed 密钥泄漏了怎么办？","acceptedAnswer":{"@type":"Answer","text":"登录控制台在「账户设置」一键重置 Feed 密钥，旧链接即时失效。Feed 密钥同时是 Open API 与 CLI 的 Bearer Token，重置后旧凭据同步失效。"}}
+      ]}
+---
+
 # 常见问题
 
 ## 账户与登录

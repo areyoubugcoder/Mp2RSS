@@ -1,6 +1,6 @@
 # 服务介绍
 
-Mp2RSS 把 **微信公众号** 与 **X（Twitter）账号** 持续转成标准 Feed（RSS / Atom / JSON Feed / OPML），可在 Reeder、NetNewsWire、FreshRSS、Miniflux 等阅读器订阅。
+Mp2RSS 提供 **微信公众号文章数据服务**：持续抓取 **微信公众号** 与 **X（Twitter）账号** 的最新内容，沉淀为结构化数据，以标准 Feed（RSS / Atom / JSON Feed / OPML）与 Open API 多种形态交付 —— 既可在 Reeder、NetNewsWire、FreshRSS、Miniflux 等阅读器订阅，也可接入舆情分析、投研报告、内容监测等数据流水线，或作为高质量信息收集与 AI 工作流的数据源。
 
 ## 支持的信息源
 

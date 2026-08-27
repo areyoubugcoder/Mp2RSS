@@ -4,7 +4,7 @@
 
 ## 1. 服务内容
 
-Mp2RSS 是一个把 **微信公众号**、**X（Twitter）账号** 等信息源转成标准 Feed（RSS / Atom / JSON Feed / OPML）的订阅服务。用户可在登录后通过界面、Open API 或 CLI 管理订阅，并在任意阅读器中使用 Feed 链接接收更新。
+Mp2RSS 是一个提供 **微信公众号**、**X（Twitter）账号** 等信息源文章数据的订阅服务：持续抓取所订阅信息源的最新内容，以标准 Feed（RSS / Atom / JSON Feed / OPML）与 Open API 等形态交付。用户可在登录后通过界面、Open API 或 CLI 管理订阅，并在任意阅读器中使用 Feed 链接接收更新。
 
 ## 2. 账户
 

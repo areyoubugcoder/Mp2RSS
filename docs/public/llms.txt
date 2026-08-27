@@ -1,0 +1,38 @@
+# Mp2RSS
+
+> Mp2RSS 是一个微信公众号文章数据服务：贴入任意一篇公众号文章链接即可订阅整个公众号，系统持续抓取后续新文章，沉淀为含 Markdown 正文的结构化文章数据，并以 RSS 2.0 / Atom 1.0 / JSON Feed 1.1 / OPML 2.0 标准 Feed、JSON Open API、CLI（mp2rss）与 AI Agent Skill 等多种形态交付，支撑舆情分析、投研报告、内容监测、高质量信息收集与个人内容阅读；同时支持订阅 X（Twitter）账号。Mp2RSS is a WeChat Official Account article data service — continuously collected, structured article data delivered as RSS / JSON Feed / JSON API for media monitoring, investment research, content pipelines, RSS readers, and AI agents.
+
+关键事实：
+
+- 应用方向：舆情分析、投研报告、内容监测、高质量信息收集、个人内容阅读（RSS 阅读器）、AI 工作流 / RAG 数据源
+
+- 产品主站（注册 / 控制台）：https://mp2rss.bugcode.dev
+- 订阅方式：贴入任意一篇公众号文章 URL（https://mp.weixin.qq.com/s?...）反查并订阅整号；X 账号在 Web 控制台搜索后订阅
+- 更新时效：从公众号发文到 Feed / API 可见平均 2–3 小时；首次订阅不回溯历史文章
+- 文章数据附带 Markdown 正文，适合程序与 AI 消费
+- 无需微信账号：GitHub / Google OAuth 登录即可使用
+- Feed 形态：单个信息源独立 Feed + 全部订阅合集 Feed（/feed/{token}/rss|atom|json/all），OPML 可导出
+- API 鉴权：Feed 密钥即 Bearer Token（Authorization: Bearer {feed_key}），控制台可一键重置
+- 定价：月付三档 —— 49 元 / 50 订阅、99 元 / 100 订阅、399 元 / 400 订阅；功能权益全档一致，差异仅在订阅上限（公众号与 X 合并计算）
+
+## 文档
+
+- [快速开始](https://areyoubugcoder.github.io/Mp2RSS/guide/quick-start): 登录、订阅公众号、复制 Feed 链接三步上手
+- [服务介绍](https://areyoubugcoder.github.io/Mp2RSS/guide/intro): 支持的信息源、核心流程与服务特点
+- [订阅管理](https://areyoubugcoder.github.io/Mp2RSS/guide/subscription): 公众号文章链接反查订阅的图文操作指引
+- [Open API](https://areyoubugcoder.github.io/Mp2RSS/api/): JSON 接口 —— 订阅列表（GET /open-api/subscriptions）、订阅 / 取消订阅公众号（POST / DELETE /open-api/subscriptions）、拉取公众号文章（GET /open-api/subscriptions/{mpId}/articles）、拉取 X 推文与长文（GET /open-api/x/{xUserId}/posts | /articles）
+- [CLI 文档](https://areyoubugcoder.github.io/Mp2RSS/cli/): mp2rss 命令行工具的安装、登录与命令参考
+- [会员与计费](https://areyoubugcoder.github.io/Mp2RSS/guide/membership): 套餐档位、续期与升降档规则
+- [FAQ](https://areyoubugcoder.github.io/Mp2RSS/guide/faq): 常见问题 —— 账户、订阅、Feed 格式、Feed 密钥、计费
+
+## AI Agent 接入
+
+- [AI Agent 接入指南](https://github.com/areyoubugcoder/mp2rss-cli#ai-agent-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8): 把 mp2rss 装进 Claude Code / Cursor 等 Agent，通过 Skill 代用户订阅公众号、检索与拉取最新文章
+- [openclaw 集成](https://github.com/areyoubugcoder/mp2rss-openclaw): 在 openclaw 里直接调用 mp2rss 能力
+
+## Optional
+
+- [服务条款](https://areyoubugcoder.github.io/Mp2RSS/guide/terms-of-service)
+- [产品站机器摘要](https://mp2rss.bugcode.dev/llms.txt): 产品主站自身的 llms.txt
+- [完整机器摘要](https://areyoubugcoder.github.io/Mp2RSS/llms-full.txt): 本文档站的全量摘要（llms-full.txt）
+- [GitHub 仓库](https://github.com/areyoubugcoder/Mp2RSS): Issues 与 Discussions 反馈入口

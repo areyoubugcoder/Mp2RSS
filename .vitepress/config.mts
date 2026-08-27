@@ -1,6 +1,63 @@
 import { defineConfig } from "vitepress";
 
 const base = "/Mp2RSS/";
+const SITE_URL = "https://areyoubugcoder.github.io/Mp2RSS/";
+const SITE_TITLE = "Mp2RSS —— 微信公众号文章数据服务";
+const SITE_DESCRIPTION =
+  "Mp2RSS 提供微信公众号文章数据服务：持续抓取公众号最新文章，沉淀为含 Markdown 正文的结构化数据，以 RSS / Atom / JSON Feed 与 Open API 多种形态交付，支撑舆情分析、投研报告、内容监测、高质量信息收集、个人内容阅读与 AI 工作流；亦支持订阅 X（Twitter）账号。";
+
+// 站点级结构化数据：让搜索引擎与 AI 抓取器明确「这是什么产品、卖什么、多少钱」
+const structuredData = JSON.stringify({
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": `${SITE_URL}#website`,
+      name: "Mp2RSS 文档",
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      inLanguage: "zh-CN",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://mp2rss.bugcode.dev/#app",
+      name: "Mp2RSS",
+      url: "https://mp2rss.bugcode.dev",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Web",
+      description:
+        "微信公众号文章数据服务：贴入任意一篇公众号文章链接即可订阅整号，持续抓取新文章并沉淀为含 Markdown 正文的结构化数据，以 RSS 2.0 / Atom 1.0 / JSON Feed 1.1 / OPML 2.0、JSON Open API、CLI 与 AI Agent Skill 多种形态交付，支撑舆情分析、投研报告、内容监测、高质量信息收集与个人内容阅读。",
+      featureList: [
+        "公众号文章链接反查订阅",
+        "RSS 2.0 / Atom 1.0 / JSON Feed 1.1 / OPML 2.0 全格式输出",
+        "Open API（JSON）订阅管理与文章拉取，文章含 Markdown 正文",
+        "mp2rss CLI 终端接入",
+        "AI Agent Skill 联动（Claude Code / Cursor 等）",
+        "X（Twitter）账号订阅",
+      ],
+      offers: [
+        {
+          "@type": "Offer",
+          name: "50 订阅 · 月付",
+          price: "49",
+          priceCurrency: "CNY",
+        },
+        {
+          "@type": "Offer",
+          name: "100 订阅 · 月付",
+          price: "99",
+          priceCurrency: "CNY",
+        },
+        {
+          "@type": "Offer",
+          name: "400 订阅 · 月付",
+          price: "399",
+          priceCurrency: "CNY",
+        },
+      ],
+    },
+  ],
+});
 const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 const gaHead = GOOGLE_ANALYTICS_ID
   ? ([
@@ -28,12 +85,33 @@ const gaHead = GOOGLE_ANALYTICS_ID
 export default defineConfig({
   srcDir: "docs",
   title: "Mp2RSS",
-  description: "把公众号、X（Twitter）等信息源搬进熟悉的阅读器 —— 一处订阅，多端同步，主流 Feed 格式即取即用",
+  description: SITE_DESCRIPTION,
   base,
   lastUpdated: true,
+  sitemap: {
+    hostname: SITE_URL,
+  },
   head: [
     ["link", { rel: "icon", href: `${base}favicon.ico` }],
     ["link", { rel: "apple-touch-icon", href: `${base}apple-touch-icon.png` }],
+    [
+      "meta",
+      {
+        name: "keywords",
+        content:
+          "公众号文章数据, 公众号数据服务, 公众号文章 API, 公众号 RSS, 微信公众号转 RSS, 公众号文章抓取, 舆情分析数据源, 舆情监测, 投研数据, 内容监测, 公众号 JSON Feed, WeChat RSS, WeChat Official Account API, AI Agent 数据源, Mp2RSS",
+      },
+    ],
+    ["meta", { property: "og:type", content: "website" }],
+    ["meta", { property: "og:site_name", content: "Mp2RSS" }],
+    ["meta", { property: "og:title", content: SITE_TITLE }],
+    ["meta", { property: "og:description", content: SITE_DESCRIPTION }],
+    ["meta", { property: "og:url", content: SITE_URL }],
+    ["meta", { property: "og:image", content: `${SITE_URL}logo.png` }],
+    ["meta", { name: "twitter:card", content: "summary" }],
+    ["meta", { name: "twitter:title", content: SITE_TITLE }],
+    ["meta", { name: "twitter:description", content: SITE_DESCRIPTION }],
+    ["script", { type: "application/ld+json" }, structuredData],
     ...gaHead,
   ],
   themeConfig: {

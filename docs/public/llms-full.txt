@@ -1,0 +1,113 @@
+# Mp2RSS —— 微信公众号文章数据服务（完整机器摘要）
+
+本文件是 Mp2RSS 文档站的机器友好全量摘要（llms-full.txt），供 LLM / AI 检索系统直接消费。
+简版见 https://areyoubugcoder.github.io/Mp2RSS/llms.txt；人类可读文档见 https://areyoubugcoder.github.io/Mp2RSS/。
+
+## Mp2RSS 是什么
+
+Mp2RSS 是一个微信公众号文章数据服务：贴入任意一篇公众号文章的链接，即可订阅它所属的整个公众号；系统持续抓取该号发布的每一篇新文章，沉淀为含 Markdown 正文的结构化文章数据，再以多种形态交付（标准 Feed / JSON Open API / CLI / AI Agent Skill）——「转 RSS」只是其中一种交付方式。无需微信账号、无需扫码，GitHub / Google OAuth 登录即可使用。除公众号外，也支持订阅 X（Twitter）账号，推文与长文以结构化数据 + 渲染 Feed 双形态输出。
+
+## 应用方向
+
+- 舆情分析：批量订阅目标公众号，用 Open API 持续拉取新文章正文，接入分词、情感分析与告警系统
+- 投研报告：跟踪券商研报号、行业媒体号、上市公司官方号，结构化正文进入研报素材库与量化数据管道
+- 内容监测：监测竞品号、行业号的发文节奏与选题动向，接入看板与通知
+- 高质量信息收集：把可信赖的信源沉淀为自己的内容库，Markdown 正文便于归档、全文检索与二次加工
+- 个人内容阅读：Feed 链接粘贴进 Reeder、NetNewsWire、FreshRSS、Miniflux 等阅读器，摆脱算法时间线
+- AI 工作流 / RAG：Agent 通过 Skill 或 API 实时获取公众号最新文章，作为检索增强与问答的数据支持
+
+- 产品主站（注册 / 控制台）：https://mp2rss.bugcode.dev
+- 使用文档：https://areyoubugcoder.github.io/Mp2RSS/
+- 更新时效：从公众号发文到 Feed / API 可见平均 2–3 小时；Feed 响应缓存 5 分钟
+- 首次订阅不回溯历史内容：只从订阅成功那一刻起收录新发布的文章
+- 公众号文章数据附带 Markdown 正文，适合脚本、数据管道与 AI Agent 消费
+
+## 支持的信息源
+
+| 信息源 | 业务键 | 订阅方式 | 输出形态 |
+| ------ | ------ | -------- | -------- |
+| 微信公众号（MP） | mpId（整数） | 贴入任意一篇公众号文章 URL 反查订阅 | 文章列表（含 Markdown 正文） |
+| X / Twitter | xUserId（字符串） | Web 控制台按昵称搜索后订阅（API / CLI 不提供 X 搜索与订阅） | 推文流（posts）+ 长文流（articles） |
+
+订阅配额在两类信息源之间合并计算，上限由所购套餐档位决定。
+
+## 数据形态（四种消费方式）
+
+1. 标准 Feed：RSS 2.0 / Atom 1.0 / JSON Feed 1.1 / OPML 2.0 全格式输出。每个信息源有独立 Feed，也提供全部订阅合集（公众号 + X 按时间线合并）：
+   - /feed/{token}/rss/all
+   - /feed/{token}/atom/all
+   - /feed/{token}/json/all
+   - /feed/{token}/opml（加 ?download=1 下载为 .opml 文件）
+   在 Reeder、NetNewsWire、FreshRSS、Miniflux 等阅读器即粘即用。
+2. Open API（JSON）：订阅管理与内容拉取全部可脚本化，见下方端点列表。
+3. CLI（mp2rss）：终端一行命令完成登录、订阅公众号、拉取文章；支持脚本化输出。
+4. AI Agent 联动：提供 Skill 接入，Claude Code / Cursor 等 Agent 可代用户订阅公众号、检索与拉取最新文章；另有 openclaw 集成。
+
+## Open API 端点
+
+- Base URL：https://mp2rss.bugcode.dev
+- 鉴权：Authorization: Bearer {feed_key} —— Feed 密钥与 API Bearer Token 是同一个凭据，控制台「账户设置」可一键重置（重置后旧 Feed 链接与旧 API 凭据同时失效）
+- 限流：可能返回 429 Too Many Requests，携带 Retry-After header，按其退避重试即可
+
+端点列表：
+
+- GET /open-api/subscriptions —— 分页查询订阅列表（MP + X 合并；q 关键字过滤、sourceType=mp|x|all、page、pageSize 最大 50）
+- POST /open-api/subscriptions —— 通过公众号文章 URL 订阅公众号（204 No Content）
+- DELETE /open-api/subscriptions/{mpId} —— 取消订阅公众号（204 No Content；24 小时内重订同一源不占用新配额）
+- GET /open-api/subscriptions/{mpId}/articles —— 分页拉取公众号文章列表（含 Markdown 正文）
+- GET /open-api/x/{xUserId}/posts —— 分页拉取已订阅 X 账号的推文流（retweetedPost / quotedPost / threadPosts 结构化字段）
+- GET /open-api/x/{xUserId}/articles —— 分页拉取已订阅 X 账号的长文流
+
+注意：API 不暴露 X 账号搜索与 X 订阅 / 取消订阅端点；脚本场景先在 Web 控制台完成 X 订阅，再用 API 读取。
+
+## CLI（mp2rss）
+
+安装、登录（OAuth 浏览器授权）后可用命令：
+
+- auth login / auth logout / auth status —— 鉴权管理
+- mp list / mp search / mp subscribe / mp remove / mp articles —— 公众号订阅与文章拉取
+- x list / x posts / x articles —— X 账号内容读取
+- update —— 自更新
+
+文档：https://areyoubugcoder.github.io/Mp2RSS/cli/
+
+## 定价与会员规则
+
+多档定价，各档功能权益完全一致（全部信息源、全部 Feed 格式、Open API、CLI），差异仅在订阅上限（公众号 + X 合并计算）。当前在售档位均为月付：
+
+| 档位 | 价格 | 时长 | 订阅上限 |
+| ---- | ---- | ---- | -------- |
+| 50 订阅 | 49 元 | 30 天 | 50 个信息源 |
+| 100 订阅（推荐） | 99 元 | 30 天 | 100 个信息源 |
+| 400 订阅 | 399 元 | 30 天 | 400 个信息源 |
+
+- 年付档已停售，存量年付会员有效期内权益不受影响
+- 有效期内续费：新周期叠加在当前到期时间之后，不浪费剩余时长
+- 升档立即生效；降档在当前高档周期到期后生效；降档前订阅数需先降到目标档上限以内
+- 同时持有多个未到期周期时，按其中最高档的上限生效
+- 上限调低不删除已有订阅，只是无法再新增
+- 档位与价格以控制台价格页实时展示为准
+
+## 常见问题精选
+
+- 支持哪些信息源？微信公众号（MP）与 X（Twitter）账号两类。
+- 支持哪些 Feed 格式？RSS 2.0 / Atom 1.0 / JSON Feed 1.1 / OPML 2.0，内容一致。
+- 需要微信账号吗？不需要。GitHub / Google OAuth 登录即可，不必登录微信或扫码授权。
+- 新内容多久出现？平均 2–3 小时；刚订阅时列表为空是预期行为（不回溯历史文章）。
+- Feed 密钥泄漏怎么办？控制台「账户设置」一键重置，旧链接即时失效。
+- 账户标识是什么？邮箱。GitHub 与 Google 登录返回同一邮箱时落到同一账户。
+
+## 链接
+
+- 产品主站：https://mp2rss.bugcode.dev
+- 快速开始：https://areyoubugcoder.github.io/Mp2RSS/guide/quick-start
+- 服务介绍：https://areyoubugcoder.github.io/Mp2RSS/guide/intro
+- 订阅管理：https://areyoubugcoder.github.io/Mp2RSS/guide/subscription
+- 会员与计费：https://areyoubugcoder.github.io/Mp2RSS/guide/membership
+- Open API：https://areyoubugcoder.github.io/Mp2RSS/api/
+- CLI：https://areyoubugcoder.github.io/Mp2RSS/cli/
+- FAQ：https://areyoubugcoder.github.io/Mp2RSS/guide/faq
+- 服务条款：https://areyoubugcoder.github.io/Mp2RSS/guide/terms-of-service
+- AI Agent 接入指南：https://github.com/areyoubugcoder/mp2rss-cli#ai-agent-如何使用
+- openclaw 集成：https://github.com/areyoubugcoder/mp2rss-openclaw
+- GitHub 仓库（Issues / Discussions）：https://github.com/areyoubugcoder/Mp2RSS
