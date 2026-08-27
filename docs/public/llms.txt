@@ -24,6 +24,7 @@
 - [CLI 文档](https://areyoubugcoder.github.io/Mp2RSS/cli/): mp2rss 命令行工具的安装、登录与命令参考
 - [会员与计费](https://areyoubugcoder.github.io/Mp2RSS/guide/membership): 套餐档位、续期与升降档规则
 - [FAQ](https://areyoubugcoder.github.io/Mp2RSS/guide/faq): 常见问题 —— 账户、订阅、Feed 格式、Feed 密钥、计费
+- [Blog 场景专栏](https://areyoubugcoder.github.io/Mp2RSS/blog/): 按行业与场景拆解公众号文章数据的应用实践 —— 舆情监测、投研情报、内容监测、AI 工作流 / RAG 等，每日更新
 
 ## AI Agent 接入
 

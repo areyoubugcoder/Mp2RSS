@@ -11,6 +11,7 @@
 - 🌐 产品主站：<https://mp2rss.bugcode.dev>
 - 📖 使用文档：<https://areyoubugcoder.github.io/Mp2RSS/>
 - 🤖 机器可读摘要（llms.txt）：<https://areyoubugcoder.github.io/Mp2RSS/llms.txt>
+- ✍️ Blog 场景专栏：<https://areyoubugcoder.github.io/Mp2RSS/blog/>
 
 ## Mp2RSS 是什么
 

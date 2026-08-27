@@ -1,4 +1,7 @@
 import { defineConfig } from "vitepress";
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 const base = "/Mp2RSS/";
 const SITE_URL = "https://areyoubugcoder.github.io/Mp2RSS/";
@@ -58,6 +61,45 @@ const structuredData = JSON.stringify({
     },
   ],
 });
+// Blog 侧边栏：扫描 docs/blog/posts 下的文章自动生成（文件名须为 YYYY-MM-DD-slug.md），
+// 按月分组、时间倒序。每日新增文章只需落一个 md 文件，无需改本配置。
+function blogSidebar() {
+  const postsDir = fileURLToPath(
+    new URL("../docs/blog/posts", import.meta.url),
+  );
+  const files = fs.existsSync(postsDir)
+    ? fs.readdirSync(postsDir).filter((f) => /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f))
+    : [];
+  const posts = files
+    .map((file) => {
+      const src = fs.readFileSync(path.join(postsDir, file), "utf-8");
+      const title = src.match(/^title:\s*["']?(.+?)["']?\s*$/m)?.[1] ?? file;
+      return {
+        month: file.slice(0, 7),
+        date: file.slice(0, 10),
+        text: title,
+        link: `/blog/posts/${file.replace(/\.md$/, "")}`,
+      };
+    })
+    .sort((a, b) => b.date.localeCompare(a.date));
+  const byMonth = new Map<string, typeof posts>();
+  for (const post of posts) {
+    if (!byMonth.has(post.month)) byMonth.set(post.month, []);
+    byMonth.get(post.month)!.push(post);
+  }
+  return [
+    {
+      text: "专栏",
+      items: [{ text: "全部文章", link: "/blog/" }],
+    },
+    ...[...byMonth.entries()].map(([month, items]) => ({
+      text: month,
+      collapsed: false,
+      items: items.map(({ text, link }) => ({ text, link })),
+    })),
+  ];
+}
+
 const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
 const gaHead = GOOGLE_ANALYTICS_ID
   ? ([
@@ -120,6 +162,7 @@ export default defineConfig({
       { text: "指南", link: "/guide/quick-start" },
       { text: "API 列表", link: "/api/" },
       { text: "CLI", link: "/cli/" },
+      { text: "Blog", link: "/blog/" },
       { text: "FAQ", link: "/guide/faq" },
       {
         text: "立即使用",
@@ -129,6 +172,7 @@ export default defineConfig({
       },
     ],
     sidebar: {
+      "/blog/": blogSidebar(),
       "/guide/": [
         {
           text: "服务说明",
