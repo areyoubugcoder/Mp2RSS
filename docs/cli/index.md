@@ -1,7 +1,9 @@
 # 命令行工具 (mp2rss CLI)
 
-`mp2rss` 是 Mp2RSS 官方命令行工具，让你在终端里完成订阅、查询、管理
-**公众号、X（Twitter）等多种信息源**的全部操作，无需打开浏览器控制台。
+`mp2rss` 是 Mp2RSS 官方命令行工具，可在终端管理公众号订阅，并读取已订阅的
+**公众号文章、X 推文与 X 长文**。X 账号的搜索、订阅和取消订阅在 Web 控制台完成。
+
+第一次接入 Agent，建议先按 [从安装到第一次获取有效内容](./first-delivery) 完成一个小任务，再接入批量工作流。
 
 ## 它能做什么
 
@@ -34,7 +36,7 @@ mp2rss x list                                  # X 订阅请先在 Web 控制台
 curl -fsSL https://raw.githubusercontent.com/areyoubugcoder/mp2rss-cli/main/scripts/install.sh | sh
 ```
 
-其他安装方式（npm / 直接下载 / 源码构建）见 [安装](./install)。
+其他安装方式（pnpm / 直接下载 / 源码构建）见 [安装](./install)。
 
 ## 使用场景演示
 
@@ -65,6 +67,7 @@ $ mp2rss x posts 44196397 -o json | jq -r '.items[0:3][].content'
 
 ## 下一步
 
+- [第一次获取有效内容](./first-delivery)：安装、授权、读取正文、核对来源与排查空结果。
 - [安装](./install)：本地构建步骤、平台兼容性。
 - [登录](./login)：三条登录路径（默认浏览器、Feed 密钥、无浏览器）。
 - [命令参考](./commands)：完整命令、参数、退出码、示例（含 `mp` 与 `x` 两个命令组）。

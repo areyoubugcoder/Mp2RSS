@@ -1,25 +1,26 @@
 <p align="center">
-  <img src="./docs/public/logo.png" alt="Mp2RSS —— 微信公众号文章数据服务" width="128" />
+  <img src="./docs/public/logo.png" alt="Mp2RSS —— 公众号与 X 内容订阅服务" width="128" />
 </p>
 
 <h1 align="center">Mp2RSS</h1>
 
-<p align="center"><b>微信公众号文章数据服务</b><br />持续抓取公众号最新文章，沉淀为含 Markdown 正文的结构化数据，通过 RSS / JSON Feed / Open API / CLI / AI Agent 多种形态交付 —— 支撑舆情分析、投研报告、内容监测、高质量信息收集与个人内容阅读。</p>
+<p align="center"><b>公众号与 X 内容订阅服务</b><br />持续获取公众号文章、X 推文与长文，通过 RSS / JSON Feed / Open API / CLI / AI Agent 多种形态交付，服务个人阅读、研究与 AI 工作流。</p>
 
-<p align="center"><i>Mp2RSS is a WeChat Official Account (公众号) article data service — continuously collected, structured article data delivered as RSS / JSON Feed, a JSON Open API, a CLI, and AI-agent integrations.</i></p>
+<p align="center"><i>Mp2RSS delivers subscribed WeChat Official Account articles and X posts and long-form articles through feeds, a JSON API, a CLI, and agent integrations.</i></p>
 
 - 🌐 产品主站：<https://mp2rss.bugcode.dev>
 - 📖 使用文档：<https://areyoubugcoder.github.io/Mp2RSS/>
 - 🤖 机器可读摘要（llms.txt）：<https://areyoubugcoder.github.io/Mp2RSS/llms.txt>
 - ✍️ Blog 场景专栏：<https://areyoubugcoder.github.io/Mp2RSS/blog/>
+- 🚀 [Agent / CLI 第一次获取有效内容](https://areyoubugcoder.github.io/Mp2RSS/cli/first-delivery) —— 安装、授权、核对正文与来源
 
 ## Mp2RSS 是什么
 
-Mp2RSS 是一个**公众号文章数据服务**：贴入任意一篇公众号文章的链接，即可订阅它所属的整个公众号；系统随后持续抓取该号发布的每一篇新文章，沉淀为**带 Markdown 正文的结构化文章数据**，再按你的消费习惯交付 —— 可以是阅读器里的一条 RSS，也可以是数据管道里的一个 JSON 接口，或是 AI Agent 手边的一个实时数据源。全程**无需微信账号、无需扫码**，GitHub / Google 登录即可使用。
+Mp2RSS 是一个**公众号与 X 内容订阅服务**：用公众号文章链接建立公众号订阅，或在 Web 控制台搜索并订阅 X 账号；随后通过阅读器、API、CLI 或 Agent 读取已获取的内容。无需提供微信账号；使用前请确认账户的会员或试用状态。
 
-- ⏱️ **更新时效**：从公众号发文到数据可见平均 **2–3 小时**；
-- 📝 **结构化正文**：每篇文章附带 Markdown 正文，人能读，程序和 AI 也能直接消费；
-- 🔗 **单号 + 合集**：每个公众号独立成流，也可合并为一条聚合时间线。
+- ⏱️ **持续更新**：发文与数据可见之间存在采集延迟；新订阅不保证立即有内容或完整历史覆盖；
+- 📝 **结构化数据**：公众号文章与 X 长文提供 Markdown 正文字段，正文缺失时应由调用方明确处理；X 推文提供文本及媒体数据；
+- 🔗 **单源 + 合集**：可按源订阅，也可合并为聚合时间线；X 的订阅管理在 Web 控制台完成。
 
 ## 应用方向
 
@@ -34,7 +35,7 @@ Mp2RSS 是一个**公众号文章数据服务**：贴入任意一篇公众号文
 
 ## 数据交付形态
 
-同一份公众号文章数据，四种方式取用：
+已订阅信息源的内容，四种方式取用：
 
 | 形态 | 适合谁 | 说明 |
 | ---- | ------ | ---- |
@@ -55,8 +56,9 @@ Mp2RSS 是一个**公众号文章数据服务**：贴入任意一篇公众号文
 ## 快速开始
 
 1. 打开 <https://mp2rss.bugcode.dev>，用 GitHub / Google 登录；
-2. 在「订阅管理」贴入任意一篇公众号文章的 URL，完成订阅；
-3. 按需取数：复制 Feed 链接粘贴到阅读器；或以 Feed 密钥作为 Bearer Token 调用 [Open API](https://areyoubugcoder.github.io/Mp2RSS/api/) 拉取 JSON 数据。
+2. 确认有效会员或站内显示的试用资格；未获赠试用时按 [会员与计费](https://areyoubugcoder.github.io/Mp2RSS/guide/membership) 开通；
+3. 在「订阅管理」使用公众号文章 URL 或搜索 X 账号，完成订阅；
+4. 复制 Feed 链接导入阅读器，或按 [首次内容获取指南](https://areyoubugcoder.github.io/Mp2RSS/cli/first-delivery) 用 CLI 读取，并核对实际内容与来源。
 
 订阅上限由所购套餐档位决定（当前在售 50 / 100 / 400 个三档，公众号与 X 合并计算）。详细步骤见 [快速开始](https://areyoubugcoder.github.io/Mp2RSS/guide/quick-start)。
 

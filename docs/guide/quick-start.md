@@ -37,6 +37,7 @@ X 订阅以 **`xUserId`**（X 内部 user_id，如 `44196397`）为业务键。�
 
 ## 更多
 
+- [Agent / CLI 第一次获取有效内容](/cli/first-delivery)：安装与授权后，核对正文、来源链接和发布时间。
 - [订阅管理](/guide/subscription)
 - [会员与计费](/guide/membership)
 - [API 列表](/api/)

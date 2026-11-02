@@ -1,6 +1,6 @@
 # 订阅管理
 
-Mp2RSS 把 **公众号（MP）** 与 **X（Twitter）账号** 的订阅语义对齐为「订阅 / 取消订阅 / 列表查询 / 内容拉取」，控制台、Open API、CLI 三处用法一致。
+Mp2RSS 支持 **公众号（MP）** 与 **X（Twitter）账号**。公众号可通过控制台、Open API 或 CLI 管理订阅；X 账号在 Web 控制台管理订阅，再通过 Feed、Open API 或 CLI 获取内容。
 
 ## 添加订阅
 
