@@ -119,7 +119,7 @@ const gaHead = GOOGLE_ANALYTICS_ID
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
           if (location.hostname === 'mp2rss.bugcode.dev') {
-            gtag('config', '${GOOGLE_ANALYTICS_ID}', { send_page_view: false });
+            gtag('config', '${GOOGLE_ANALYTICS_ID}', { content_group: 'docs' });
           }
         `,
     ],

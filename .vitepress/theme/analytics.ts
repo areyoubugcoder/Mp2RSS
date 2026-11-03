@@ -24,7 +24,8 @@ export function useDocsAnalytics() {
     if (location.hostname !== 'mp2rss.bugcode.dev' || !analytics.gtag) return;
     const page = publicUrl(location.href, true);
     if (previous === page) return;
-    analytics.gtag('event', 'page_view', {
+    // 独立事件避免与 GA4 增强测量的 history page_view 重复累计。
+    analytics.gtag('event', 'docs_page_view', {
       page_location: page,
       page_title: document.title,
       page_referrer: previous || publicUrl(document.referrer),

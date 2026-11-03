@@ -35,6 +35,9 @@ if (migration.legacyRedirects) {
     const dest = join(output, file); mkdirSync(join(dest, '..'), { recursive: true }); cpSync(join(dist, file), dest);
   }
   cpSync(join(dist, 'sitemap.xml'), join(output, 'sitemap.xml'));
+  // 保留迁移前样式、脚本和图片，兼容浏览器缓存中的旧 HTML 与外部图片引用。
+  execFileSync('pnpm', ['build'], { stdio: 'inherit', env: { ...process.env, DOCS_BUILD_TARGET: 'legacy', GOOGLE_ANALYTICS_ID: '' } });
+  cpSync(join(dist, 'assets'), join(output, 'assets'), { recursive: true });
 } else {
   execFileSync('pnpm', ['build'], { stdio: 'inherit', env: { ...process.env, DOCS_BUILD_TARGET: 'legacy', GOOGLE_ANALYTICS_ID: '' } });
   for (const file of readdirSync(dist)) cpSync(join(dist, file), join(output, file), { recursive: true });
