@@ -1,3 +1,4 @@
+import { useDocsAnalytics } from "./analytics";
 import DefaultTheme from "vitepress/theme";
 import { useRoute } from "vitepress";
 import imageViewer from "vitepress-plugin-image-viewer";
@@ -18,6 +19,7 @@ export default {
     app.component("TypewriterRotator", TypewriterRotator);
   },
   setup() {
+    useDocsAnalytics();
     const route = useRoute();
     imageViewer(route);
   },

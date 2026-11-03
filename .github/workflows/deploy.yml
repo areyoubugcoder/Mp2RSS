@@ -1,4 +1,4 @@
-name: Deploy VitePress site to GitHub Pages
+name: Build docs release and maintain legacy URLs
 
 on:
   push:
@@ -29,14 +29,17 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 22.23.4
           cache: pnpm
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build with VitePress
-        run: pnpm build
+      - name: Validate release scripts
+        run: pnpm test
+
+      - name: Build and validate main-site release
+        run: pnpm build:release
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
@@ -44,7 +47,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: .vitepress/dist
+          path: .vitepress/pages
 
   deploy:
     needs: build

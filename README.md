@@ -9,10 +9,10 @@
 <p align="center"><i>Mp2RSS delivers subscribed WeChat Official Account articles and X posts and long-form articles through feeds, a JSON API, a CLI, and agent integrations.</i></p>
 
 - 🌐 产品主站：<https://mp2rss.bugcode.dev>
-- 📖 使用文档：<https://areyoubugcoder.github.io/Mp2RSS/>
-- 🤖 机器可读摘要（llms.txt）：<https://areyoubugcoder.github.io/Mp2RSS/llms.txt>
-- ✍️ Blog 场景专栏：<https://areyoubugcoder.github.io/Mp2RSS/blog/>
-- 🚀 [Agent / CLI 第一次获取有效内容](https://areyoubugcoder.github.io/Mp2RSS/cli/first-delivery) —— 安装、授权、核对正文与来源
+- 📖 使用文档：<https://mp2rss.bugcode.dev/docs/>
+- 🤖 机器可读摘要（llms.txt）：<https://mp2rss.bugcode.dev/docs/llms.txt>
+- ✍️ Blog 场景专栏：<https://mp2rss.bugcode.dev/docs/blog/>
+- 🚀 [Agent / CLI 第一次获取有效内容](https://mp2rss.bugcode.dev/docs/cli/first-delivery) —— 安装、授权、核对正文与来源
 
 ## Mp2RSS 是什么
 
@@ -56,30 +56,30 @@ Mp2RSS 是一个**公众号与 X 内容订阅服务**：用公众号文章链接
 ## 快速开始
 
 1. 打开 <https://mp2rss.bugcode.dev>，用 GitHub / Google 登录；
-2. 确认有效会员或站内显示的试用资格；未获赠试用时按 [会员与计费](https://areyoubugcoder.github.io/Mp2RSS/guide/membership) 开通；
+2. 确认有效会员或站内显示的试用资格；未获赠试用时按 [会员与计费](https://mp2rss.bugcode.dev/docs/guide/membership) 开通；
 3. 在「订阅管理」使用公众号文章 URL 或搜索 X 账号，完成订阅；
-4. 复制 Feed 链接导入阅读器，或按 [首次内容获取指南](https://areyoubugcoder.github.io/Mp2RSS/cli/first-delivery) 用 CLI 读取，并核对实际内容与来源。
+4. 复制 Feed 链接导入阅读器，或按 [首次内容获取指南](https://mp2rss.bugcode.dev/docs/cli/first-delivery) 用 CLI 读取，并核对实际内容与来源。
 
-订阅上限由所购套餐档位决定（当前在售 50 / 100 / 400 个三档，公众号与 X 合并计算）。详细步骤见 [快速开始](https://areyoubugcoder.github.io/Mp2RSS/guide/quick-start)。
+订阅上限由所购套餐档位决定（当前在售 50 / 100 / 400 个三档，公众号与 X 合并计算）。详细步骤见 [快速开始](https://mp2rss.bugcode.dev/docs/guide/quick-start)。
 
 更进阶的玩法：
 
-- 🛠️ [Open API](https://areyoubugcoder.github.io/Mp2RSS/api/) —— 把公众号订阅管理与文章拉取接进自己的服务或数据管道
-- ⌨️ [CLI 文档](https://areyoubugcoder.github.io/Mp2RSS/cli/) —— 终端里一行命令完成登录、订阅与管理
+- 🛠️ [Open API](https://mp2rss.bugcode.dev/docs/api/) —— 把公众号订阅管理与文章拉取接进自己的服务或数据管道
+- ⌨️ [CLI 文档](https://mp2rss.bugcode.dev/docs/cli/) —— 终端里一行命令完成登录、订阅与管理
 - 🤖 [AI Agent 接入指南](https://github.com/areyoubugcoder/mp2rss-cli#ai-agent-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8) —— 把 mp2rss 装进 Claude Code / Cursor 等 Agent，让它代你订阅与检索
 - 🐾 [openclaw 集成](https://github.com/areyoubugcoder/mp2rss-openclaw) —— 在 openclaw 里直接调用 mp2rss 能力
 
 ## 文档导航
 
-- [服务介绍](https://areyoubugcoder.github.io/Mp2RSS/guide/intro)
-- [订阅管理](https://areyoubugcoder.github.io/Mp2RSS/guide/subscription)
-- [会员与计费](https://areyoubugcoder.github.io/Mp2RSS/guide/membership)
-- [Open API](https://areyoubugcoder.github.io/Mp2RSS/api/)
-- [CLI 文档](https://areyoubugcoder.github.io/Mp2RSS/cli/)
+- [服务介绍](https://mp2rss.bugcode.dev/docs/guide/intro)
+- [订阅管理](https://mp2rss.bugcode.dev/docs/guide/subscription)
+- [会员与计费](https://mp2rss.bugcode.dev/docs/guide/membership)
+- [Open API](https://mp2rss.bugcode.dev/docs/api/)
+- [CLI 文档](https://mp2rss.bugcode.dev/docs/cli/)
 - [AI Agent 接入指南](https://github.com/areyoubugcoder/mp2rss-cli#ai-agent-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8)
 - [openclaw 集成](https://github.com/areyoubugcoder/mp2rss-openclaw)
-- [FAQ](https://areyoubugcoder.github.io/Mp2RSS/guide/faq)
-- [服务条款](https://areyoubugcoder.github.io/Mp2RSS/guide/terms-of-service)
+- [FAQ](https://mp2rss.bugcode.dev/docs/guide/faq)
+- [服务条款](https://mp2rss.bugcode.dev/docs/guide/terms-of-service)
 
 ## 反馈与交流
 

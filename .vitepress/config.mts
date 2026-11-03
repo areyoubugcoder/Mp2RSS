@@ -3,8 +3,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const base = "/Mp2RSS/";
-const SITE_URL = "https://areyoubugcoder.github.io/Mp2RSS/";
+const legacyPreview = process.env.DOCS_BUILD_TARGET === "legacy";
+const base = legacyPreview ? "/Mp2RSS/" : "/docs/";
+const SITE_URL = legacyPreview ? "https://areyoubugcoder.github.io/Mp2RSS/" : "https://mp2rss.bugcode.dev/docs/";
 const SITE_TITLE = "Mp2RSS —— 微信公众号文章数据服务";
 const SITE_DESCRIPTION =
   "Mp2RSS 提供微信公众号文章数据服务：持续抓取公众号最新文章，沉淀为含 Markdown 正文的结构化数据，以 RSS / Atom / JSON Feed 与 Open API 多种形态交付，支撑舆情分析、投研报告、内容监测、高质量信息收集、个人内容阅读与 AI 工作流；亦支持订阅 X（Twitter）账号。";
@@ -100,7 +101,7 @@ function blogSidebar() {
   ];
 }
 
-const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "";
+const GOOGLE_ANALYTICS_ID = legacyPreview ? "" : (process.env.GOOGLE_ANALYTICS_ID ?? "G-37PKGJ7VET");
 const gaHead = GOOGLE_ANALYTICS_ID
   ? ([
     [
@@ -117,7 +118,9 @@ const gaHead = GOOGLE_ANALYTICS_ID
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-          gtag('config', '${GOOGLE_ANALYTICS_ID}');
+          if (location.hostname === 'mp2rss.bugcode.dev') {
+            gtag('config', '${GOOGLE_ANALYTICS_ID}', { send_page_view: false });
+          }
         `,
     ],
   ] as any)
@@ -129,6 +132,22 @@ export default defineConfig({
   title: "Mp2RSS",
   description: SITE_DESCRIPTION,
   base,
+  lang: "zh-CN",
+  cleanUrls: true,
+  transformHead({ pageData }) {
+    if (pageData.relativePath === "404.md") return [["meta", { name: "robots", content: "noindex" }]];
+    const pagePath = pageData.relativePath.replace(/index\.md$/, "").replace(/\.md$/, "");
+    const url = new URL(pagePath, SITE_URL).href;
+    const title = pageData.title ? `${pageData.title} | Mp2RSS` : SITE_TITLE;
+    return [
+      ["link", { rel: "canonical", href: url }],
+      ["meta", { property: "og:url", content: url }],
+      ["meta", { property: "og:title", content: title }],
+      ["meta", { property: "og:description", content: pageData.description || SITE_DESCRIPTION }],
+      ["meta", { name: "twitter:title", content: title }],
+      ["meta", { name: "twitter:description", content: pageData.description || SITE_DESCRIPTION }],
+    ];
+  },
   lastUpdated: true,
   sitemap: {
     hostname: SITE_URL,
@@ -146,13 +165,8 @@ export default defineConfig({
     ],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:site_name", content: "Mp2RSS" }],
-    ["meta", { property: "og:title", content: SITE_TITLE }],
-    ["meta", { property: "og:description", content: SITE_DESCRIPTION }],
-    ["meta", { property: "og:url", content: SITE_URL }],
     ["meta", { property: "og:image", content: `${SITE_URL}logo.png` }],
     ["meta", { name: "twitter:card", content: "summary" }],
-    ["meta", { name: "twitter:title", content: SITE_TITLE }],
-    ["meta", { name: "twitter:description", content: SITE_DESCRIPTION }],
     ["script", { type: "application/ld+json" }, structuredData],
     ...gaHead,
   ],

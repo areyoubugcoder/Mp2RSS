@@ -1,7 +1,7 @@
 # Mp2RSS —— 微信公众号文章数据服务（完整机器摘要）
 
 本文件是 Mp2RSS 文档站的机器友好全量摘要（llms-full.txt），供 LLM / AI 检索系统直接消费。
-简版见 https://areyoubugcoder.github.io/Mp2RSS/llms.txt；人类可读文档见 https://areyoubugcoder.github.io/Mp2RSS/。
+简版见 https://mp2rss.bugcode.dev/docs/llms.txt；人类可读文档见 https://mp2rss.bugcode.dev/docs/。
 
 ## Mp2RSS 是什么
 
@@ -17,7 +17,7 @@ Mp2RSS 是一个微信公众号文章数据服务：贴入任意一篇公众号�
 - AI 工作流 / RAG：Agent 通过 Skill 或 API 实时获取公众号最新文章，作为检索增强与问答的数据支持
 
 - 产品主站（注册 / 控制台）：https://mp2rss.bugcode.dev
-- 使用文档：https://areyoubugcoder.github.io/Mp2RSS/
+- 使用文档：https://mp2rss.bugcode.dev/docs/
 - 更新时效：从公众号发文到 Feed / API 可见平均 2–3 小时；Feed 响应缓存 5 分钟
 - 首次订阅不回溯历史内容：只从订阅成功那一刻起收录新发布的文章
 - 公众号文章数据附带 Markdown 正文，适合脚本、数据管道与 AI Agent 消费
@@ -69,7 +69,7 @@ Mp2RSS 是一个微信公众号文章数据服务：贴入任意一篇公众号�
 - x list / x posts / x articles —— X 账号内容读取
 - update —— 自更新
 
-文档：https://areyoubugcoder.github.io/Mp2RSS/cli/
+文档：https://mp2rss.bugcode.dev/docs/cli/
 
 ## 定价与会员规则
 
@@ -100,14 +100,14 @@ Mp2RSS 是一个微信公众号文章数据服务：贴入任意一篇公众号�
 ## 链接
 
 - 产品主站：https://mp2rss.bugcode.dev
-- 快速开始：https://areyoubugcoder.github.io/Mp2RSS/guide/quick-start
-- 服务介绍：https://areyoubugcoder.github.io/Mp2RSS/guide/intro
-- 订阅管理：https://areyoubugcoder.github.io/Mp2RSS/guide/subscription
-- 会员与计费：https://areyoubugcoder.github.io/Mp2RSS/guide/membership
-- Open API：https://areyoubugcoder.github.io/Mp2RSS/api/
-- CLI：https://areyoubugcoder.github.io/Mp2RSS/cli/
-- FAQ：https://areyoubugcoder.github.io/Mp2RSS/guide/faq
-- 服务条款：https://areyoubugcoder.github.io/Mp2RSS/guide/terms-of-service
+- 快速开始：https://mp2rss.bugcode.dev/docs/guide/quick-start
+- 服务介绍：https://mp2rss.bugcode.dev/docs/guide/intro
+- 订阅管理：https://mp2rss.bugcode.dev/docs/guide/subscription
+- 会员与计费：https://mp2rss.bugcode.dev/docs/guide/membership
+- Open API：https://mp2rss.bugcode.dev/docs/api/
+- CLI：https://mp2rss.bugcode.dev/docs/cli/
+- FAQ：https://mp2rss.bugcode.dev/docs/guide/faq
+- 服务条款：https://mp2rss.bugcode.dev/docs/guide/terms-of-service
 - AI Agent 接入指南：https://github.com/areyoubugcoder/mp2rss-cli#ai-agent-如何使用
 - openclaw 集成：https://github.com/areyoubugcoder/mp2rss-openclaw
 - GitHub 仓库（Issues / Discussions）：https://github.com/areyoubugcoder/Mp2RSS
