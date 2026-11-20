@@ -101,29 +101,10 @@ function blogSidebar() {
   ];
 }
 
-const GOOGLE_ANALYTICS_ID = legacyPreview ? "" : (process.env.GOOGLE_ANALYTICS_ID ?? "G-37PKGJ7VET");
-const gaHead = GOOGLE_ANALYTICS_ID
-  ? ([
-    [
-      "script",
-      {
-        async: "",
-        src: `https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`,
-      },
-    ],
-    [
-      "script",
-      {},
-      `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          if (location.hostname === 'mp2rss.bugcode.dev') {
-            gtag('config', '${GOOGLE_ANALYTICS_ID}', { content_group: 'docs' });
-          }
-        `,
-    ],
-  ] as any)
+// 与主站共用同源启动器和已保存选择；旧迁移站不加载统计。
+// 发布时先部署主站的 /analytics-consent.js，再发布文档站。
+const gaHead = !legacyPreview && process.env.GOOGLE_ANALYTICS_ID !== ""
+  ? ([["script", { src: "/analytics-consent.js" }]] as any)
   : [];
 
 // https://vitepress.dev/reference/site-config

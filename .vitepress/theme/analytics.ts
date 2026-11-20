@@ -1,7 +1,7 @@
 import { nextTick, onMounted, onUnmounted, watch } from 'vue';
 import { useRoute } from 'vitepress';
 
-type AnalyticsWindow = Window & { gtag?: (...args: unknown[]) => void };
+type AnalyticsWindow = Window & { gtag?: (...args: unknown[]) => void; mp2rssConsent?: { getChoice(): string | null } };
 const campaignKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'utm_id'];
 
 function publicUrl(raw: string, campaigns = false) {
@@ -21,7 +21,7 @@ export function useDocsAnalytics() {
   let previous = '';
   const track = () => {
     const analytics = window as AnalyticsWindow;
-    if (location.hostname !== 'mp2rss.bugcode.dev' || !analytics.gtag) return;
+    if (location.hostname !== 'mp2rss.bugcode.dev' || !analytics.gtag || analytics.mp2rssConsent?.getChoice() !== 'granted') return;
     const page = publicUrl(location.href, true);
     if (previous === page) return;
     // 独立事件避免与 GA4 增强测量的 history page_view 重复累计。
@@ -35,7 +35,7 @@ export function useDocsAnalytics() {
   };
   const click = (event: MouseEvent) => {
     const link = (event.target as Element | null)?.closest?.('a[href]') as HTMLAnchorElement | null;
-    if (!link || location.hostname !== 'mp2rss.bugcode.dev') return;
+    if (!link || location.hostname !== 'mp2rss.bugcode.dev' || (window as AnalyticsWindow).mp2rssConsent?.getChoice() !== 'granted') return;
     const target = new URL(link.href);
     if (target.origin !== location.origin || target.pathname.startsWith('/docs')) return;
     (window as AnalyticsWindow).gtag?.('event', 'docs_cta_click', {
@@ -45,6 +45,7 @@ export function useDocsAnalytics() {
     });
   };
   watch(() => route.path, () => nextTick(track));
-  onMounted(() => { nextTick(track); document.addEventListener('click', click); });
-  onUnmounted(() => document.removeEventListener('click', click));
+  const consentChanged = () => { previous = ''; nextTick(track); };
+  onMounted(() => { nextTick(track); document.addEventListener('click', click); window.addEventListener('mp2rss:consent', consentChanged); });
+  onUnmounted(() => { document.removeEventListener('click', click); window.removeEventListener('mp2rss:consent', consentChanged); });
 }

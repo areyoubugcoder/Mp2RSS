@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import DefaultTheme from 'vitepress/theme';
+import AnalyticsConsent from './AnalyticsConsent.vue';
 import TypewriterRotator from './TypewriterRotator.vue';
 
 const { Layout } = DefaultTheme;
@@ -22,6 +23,7 @@ const phrases = [
         <TypewriterRotator :phrases="phrases" />
       </div>
     </template>
+    <template #layout-bottom><AnalyticsConsent /></template>
   </Layout>
 </template>
 
